@@ -1,0 +1,38 @@
+name: GMED Evidence Gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: syntax-tests-and-static-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check src/verifier.js
+          node --check src/github.js
+          node --check scripts/gmed.mjs
+      - name: Run deterministic regression tests
+        run: node --test tests/*.test.mjs
+      - name: Validate static entry points
+        run: |
+          test -s index.html
+          test -s styles.css
+          test -s favicon.svg
+          test -s LICENSE
+          grep -q 'type="module" src="app.js"' index.html
+          grep -q 'id="verify-form"' index.html
+          grep -q 'MERGED IS A CLAIM' index.html
