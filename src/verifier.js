@@ -58,7 +58,7 @@ export function assess({pull,checkRuns=[],commitStatuses=[],complete=true,observ
   const sha=typeof pull.merge_commit_sha==='string'&&shaPattern.test(pull.merge_commit_sha)
     ?pull.merge_commit_sha.toLowerCase():null;
   const rows=[...checkRuns.map(checkRow),...commitStatuses.map(statusRow)];
-  const counts={total:rows.length,success:rows.filter(r=>r.grade==='good').length,
+  const counts={total:rows.length,passed:rows.filter(r=>r.grade==='good'&&((r.kind==='check'&&r.conclusion==='success')||r.kind==='status')).length,accepted:rows.filter(r=>r.grade==='good').length,
     failed:rows.filter(r=>r.grade==='bad').length,pending:rows.filter(r=>r.grade==='pending').length,
     unknown:rows.filter(r=>r.grade==='unknown').length};
   let state,detail;
@@ -80,8 +80,7 @@ export function assess({pull,checkRuns=[],commitStatuses=[],complete=true,observ
   }else if(counts.unknown>0){
     state='UNVERIFIED';
     detail='Merged, but at least one check has an unrecognized outcome.';
-  }else if(counts.total===0||!rows.some(r=>r.grade==='good'&&(
-    (r.kind==='check'&&r.conclusion==='success')||r.kind==='status'))){
+  }else if(counts.total===0||!counts.passed>0){
     state='UNVERIFIED';
     detail='Merged, but no successful check could be established for the merge commit.';
   }else{
