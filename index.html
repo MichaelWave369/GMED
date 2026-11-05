@@ -20,7 +20,7 @@
     </a>
     <nav aria-label="Main links">
       <a href="#verify">VERIFY</a>
-      <a href="#protocol">PROTOCOL</a>
+      <a href="#protocol">PROTOCOL</a><a href="#ouroboros">OUROBOROS ↻</a>
       <a href="https://github.com/MichaelWave369/GMED" target="_blank" rel="noreferrer">SOURCE ↗</a>
     </nav>
   </header>
@@ -74,6 +74,36 @@
         <article><span class="step">03</span><div class="step-line"></div><h3>DOCUMENTED</h3><p>Show individual signals, source links, observation time and a downloadable JSON receipt. Empty evidence means unverified.</p></article>
       </div>
       <div class="disclaimer"><strong>THE SERIOUS BIT.</strong> GMED reads public GitHub API evidence without authentication. It cannot determine which checks a branch requires, whether code was independently reviewed, or whether a passing test proves correct behavior. Anonymous GitHub API rate limits apply. On errors or incomplete evidence, verification is withheld.</div>
+    </section>
+
+    <section class="ouro-section" id="ouroboros" aria-labelledby="ouro-title">
+      <div class="section-top">
+        <div>
+          <p class="section-index">03 / OUROBOROS R2</p>
+          <h2 id="ouro-title">Who verifies the verifier?</h2>
+          <p>GMED can inspect its own release, but that alone does not make it independent.</p>
+        </div>
+        <span class="live-mark">NO CIRCULAR GREEN STAMPS</span>
+      </div>
+      <div class="ouro-explain">
+        <div class="ouro-flow" role="img" aria-label="GitHub public evidence flows independently to GMED and the Ouroboros auditor; the auditor also reviews the first report">
+          <div class="ouro-node"><span>ORIGIN</span><strong>GITHUB API</strong><small>Public observed evidence</small></div>
+          <div class="ouro-arrow" aria-hidden="true">→</div>
+          <div class="ouro-node"><span>FIRST OPINION</span><strong>GMED</strong><small>Primary receipt</small></div>
+          <div class="ouro-arrow" aria-hidden="true">→</div>
+          <div class="ouro-node"><span>SECOND OPINION</span><strong>OUROBOROS</strong><small>Fresh GitHub read + separate classifier</small></div>
+        </div>
+        <p>The second verifier re-fetches GitHub evidence through a distinct source implementation, rechecks each outcome and count, and compares its independently reconstructed result against GMED's first receipt. The trust graph must remain acyclic. Both implementations still share GitHub and this repository, so this is not external or cryptographic independence.</p>
+        <div class="ouro-lab">
+          <div>
+            <h3>The Ouroboros paradox</h3>
+            <p>Try deliberately adding a dependency from GMED back to the auditor that checks it. The software should refuse the loop, rather than proclaiming an infinite chain of approvals.</p>
+          </div>
+          <button type="button" id="loop-demo">INJECT A SYNTHETIC TRUST LOOP ↻</button>
+        </div>
+        <div id="loop-result" class="ouro-loop-result" aria-live="polite" hidden></div>
+        <p class="ouro-notes"><strong>To perform a real second inspection:</strong> use the Verification Desk above, then choose <em>Run Ouroboros / Second Opinion</em> on its completed receipt. This action issues another read-only set of public GitHub API requests.</p>
+      </div>
     </section>
   </main>
   <footer><span>© 2026 PHI369 LABS · PEOPLE ABOVE PROFIT · LEDGER ABOVE EGO</span><span>*™ means “terribly memorable,” not a registered trademark.</span><a href="https://github.com/MichaelWave369/GMED/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT LICENSE ↗</a></footer>
