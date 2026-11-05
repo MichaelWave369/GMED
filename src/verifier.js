@@ -80,7 +80,7 @@ export function assess({pull,checkRuns=[],commitStatuses=[],complete=true,observ
   }else if(counts.unknown>0){
     state='UNVERIFIED';
     detail='Merged, but at least one check has an unrecognized outcome.';
-  }else if(counts.total===0||!counts.passed>0){
+  }else if(counts.total===0||counts.passed===0){
     state='UNVERIFIED';
     detail='Merged, but no successful check could be established for the merge commit.';
   }else{
