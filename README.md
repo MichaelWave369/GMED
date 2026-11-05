@@ -9,6 +9,14 @@ Repository: https://github.com/MichaelWave369/GMED
 
 GitHub Pages target: https://michaelwave369.github.io/GMED/ (published only after Pages is configured and the deployment succeeds).
 
+## Rung 2: The Ouroboros Protocol
+
+**Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
+
+Result states: `DUAL_MATCH`, `AGREED_NOT_GREEN`, `MISMATCH`, and `CYCLIC_TRUST`. Only `DUAL_MATCH` qualifies as agreement on a GMED-green result. API errors or incomplete data withhold the result. Both inspectors share the same repository and GitHub provider; this is **not independent organizational/cryptographic verification**.
+
+Run `npm run ouroboros -- MichaelWave369/GMED 1` or inspect a public PR on the site and select **Run Ouroboros**. Full methods and limitations: [Ouroboros R2 protocol](docs/OUROBOROS_R2.md). The site's intended R2 section is [#ouroboros](https://michaelwave369.github.io/GMED/#ouroboros), after a successful merge/deployment.
+
 ## What Rung 1 actually does
 
 - **GERGED:** Confirms GitHub reports the PR as merged, not merely closed.
@@ -52,8 +60,10 @@ GMED captures the API snapshot; it does not independently execute tests, assess 
 |---|---|
 | src/verifier.js | Pure classification logic, target parsing and fail-closed rules |
 | src/github.js | Anonymous HTTPS GitHub REST requests, bounded pagination and errors |
+| src/ouroboros.js | Independent GitHub re-observation, decision reconstruction and cycle detector |
 | index.html, styles.css, app.js, favicon.svg | Responsive static dashboard |
 | scripts/gmed.mjs | CLI with JSON receipts and meaningful exit codes |
+| scripts/ouroboros.mjs | Two-observation CLI with separate results and a refusal-aware exit code |
 | tests/*.test.mjs | Deterministic regression checks with fake HTTP responses |
 | .github/workflows/ci.yml | PR and main verification suite |
 | .github/workflows/pages.yml | Test, stage and deploy GitHub Pages on main |
@@ -66,10 +76,11 @@ Rung 1 is public-repository only. It does not read private code, store credentia
 
 ## Roadmap
 
-- **R2 Fleet:** Manually selected public project watchboard with explicit refresh, budgets and live status.
-- **R3 Provenance:** Source-backed signed evidence bundles and an optional PhiTriBrain369 import contract.
-- **R4 Policy:** Compare observed checks against authorized branch-protection / required-check metadata.
-- **R5 Phi ecosystem:** Read-only evidence cards for PhiMadaPrime, Altermath, PhiOS, and other projects.
+- **R2 Ouroboros (implemented):** Second public GitHub observation, independent classifier, receipt comparison, acyclic declared trust graph and simulated loop challenge.
+- **R3 Fleet (planned):** Manually selected public project watchboard with explicit refresh, budgets and live status.
+- **R4 Provenance:** Source-backed signed evidence bundles and an optional PhiTriBrain369 import contract.
+- **R5 Policy:** Compare observed checks against authorized branch-protection / required-check metadata.
+- **R6 Phi ecosystem:** Read-only evidence cards for PhiMadaPrime, Altermath, PhiOS, and other projects.
 
 ## License
 
