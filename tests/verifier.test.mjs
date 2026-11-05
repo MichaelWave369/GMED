@@ -25,7 +25,7 @@ test('GMED requires actual merge and observed success on the merged SHA',()=>{
  assert.equal(r.schema,SCHEMA);
  assert.equal(r.state,'GMED');
  assert.equal(r.sha,sha);
- assert.equal(r.counts.success,1);
+ assert.equal(r.counts.passed,1);
  assert.equal(r.observedAt,'2026-11-05T00:00:00.000Z');
  assert.equal(evaluate({pull:pull({merged:false})}).state,'NOT_MERGED');
  assert.equal(evaluate({pull:pull({merge_commit_sha:null})}).state,'UNVERIFIED');
