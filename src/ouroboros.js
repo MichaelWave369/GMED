@@ -118,7 +118,8 @@ export function analyzeTrustGraph(graph=DEFAULT_TRUST_GRAPH){
     errors.push('Auditor must directly observe GitHub and inspect the primary report.');
   if(cycles.length)errors.push('Circular trust dependency detected.');
   return {valid:errors.length===0,cycles,errors,
-    nodes:graph.map(n=>({id:n.id,kind:n.kind,dependsOn:[...n.dependsOn]}))};
+    nodes:graph.filter(n=>n&&typeof n==='object'&&Array.isArray(n.dependsOn))
+      .map(n=>({id:n.id,kind:n.kind,dependsOn:[...n.dependsOn]}))};
 }
 
 function validateTarget(target){
