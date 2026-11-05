@@ -72,7 +72,7 @@ function render(report,{synthetic=false}={}){
  header.append(stamp,copy);
  result.append(header);
  const stats=el('div','stats');
- for(const [label,val] of [['OBSERVED SIGNALS',report.counts.total],['GOOD',report.counts.success],['FAILED',report.counts.failed],['RUNNING',report.counts.pending]]){
+ for(const [label,val] of [['OBSERVED SIGNALS',report.counts.total],['PASSED',report.counts.passed],['FAILED',report.counts.failed],['RUNNING',report.counts.pending]]){
   const box=el('div','stat');
   box.append(el('span','',label),el('strong','',val));stats.append(box);
  }
