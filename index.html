@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09130f">
+  <meta name="description" content="GMED: the Gerged & Mreened Evidence Department. Verify GitHub merges and their actual commit checks.">
+  <title>GMED // The Gerged & Mreened Evidence Department</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+<div class="noise" aria-hidden="true"></div>
+<div class="shell">
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="GMED home">
+      <span class="brand-mark">G<span class="ring">M</span></span>
+      <span class="brand-words"><strong>GMED</strong><small>PHI369 LABS / FIELD OPERATIONS</small></span>
+    </a>
+    <nav aria-label="Main links">
+      <a href="#verify">VERIFY</a>
+      <a href="#protocol">PROTOCOL</a>
+      <a href="https://github.com/MichaelWave369/GMED" target="_blank" rel="noreferrer">SOURCE ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <div class="kicker"><span class="beacon"></span> OFFICIAL-ISH OPEN SOURCE QUALITY CONTROL / 001</div>
+        <p class="dept">THE GERGED & MREENED EVIDENCE DEPARTMENT</p>
+        <h1 id="hero-title">GMED<span class="tm">™*</span></h1>
+        <p class="slogan">MERGED IS A CLAIM.<br><em>GREEN IS EVIDENCE.</em></p>
+        <p class="intro">Born from a typo, promoted by laughter, and now apparently responsible for checking your pull requests. GMED inspects GitHub's actual merge commit and its published check results. It will not certify vibes.</p>
+        <div class="hero-actions"><a class="cta" href="#verify">OPEN THE VERIFICATION DESK <span>↗</span></a><span class="hero-aside">NO LOGIN · NO TOKENS · PUBLIC REPOS</span></div>
+      </div>
+      <div class="seal" aria-label="The GMED official-ish seal, showing checks are earned rather than assumed">
+        <div class="seal-rings">
+          <div class="seal-above">EVIDENCE ABOVE EGO</div>
+          <div class="seal-center"><span>G</span><b>M</b><span>E</span><b>D</b></div>
+          <div class="seal-below">GERGED • MREENED • VERIFIED</div>
+          <div class="seal-foot">EST. 2026 · DEPT. 369</div>
+        </div>
+        <span class="seal-halo" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="desk" id="verify" aria-labelledby="desk-title">
+      <div class="section-top">
+        <div><p class="section-index">01 / LIVE INSPECTION</p><h2 id="desk-title">Verification desk</h2><p>Enter a public GitHub repository and PR number, or paste the full PR URL.</p></div>
+        <span class="live-mark"><span class="beacon"></span> DIRECT GITHUB API</span>
+      </div>
+      <div class="desk-body">
+        <form id="verify-form" class="verify-form">
+          <div class="field field-repo"><label for="repo">REPOSITORY OR PR URL</label><input id="repo" name="repo" type="text" spellcheck="false" autocomplete="off" required placeholder="owner/repo or https://github.com/owner/repo/pull/22" value="MichaelWave369/Altermath"></div>
+          <div class="field field-pr"><label for="pr">PR #</label><input id="pr" name="pr" type="number" min="1" step="1" inputmode="numeric" value="22" placeholder="22"></div>
+          <button id="scan" class="run" type="submit"><span class="run-label">VERIFY WITH GITHUB</span><span class="run-arrow">↗</span></button>
+        </form>
+        <div class="demo-row"><span class="demo-explain">No network? You can inspect an explicitly simulated demonstration.</span><button id="demo" type="button">RUN SYNTHETIC DEMO →</button></div>
+        <p id="error" class="error" role="alert" hidden></p>
+
+        <section id="result" class="result" aria-live="polite" aria-atomic="false">
+          <div class="result-placeholder"><div class="placeholder-glyph" aria-hidden="true">⌁</div><p>AWAITING EVIDENCE</p><span>The stamp stays in the drawer until the checks arrive.</span></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="protocol" id="protocol" aria-labelledby="protocol-title">
+      <div class="section-top"><div><p class="section-index">02 / VERIFICATION POLICY</p><h2 id="protocol-title">The GMED standard</h2><p>A green dot is not a personality trait. We actually check.</p></div></div>
+      <div class="protocol-grid">
+        <article><span class="step">01</span><div class="step-line"></div><h3>GERGED</h3><p>GitHub must report that the pull request was genuinely merged, not merely closed or approved.</p></article>
+        <article><span class="step">02</span><div class="step-line"></div><h3>MREENED</h3><p>Inspect check runs and legacy commit statuses on the exact merged commit SHA. Pending or failed evidence blocks the stamp.</p></article>
+        <article><span class="step">03</span><div class="step-line"></div><h3>DOCUMENTED</h3><p>Show individual signals, source links, observation time and a downloadable JSON receipt. Empty evidence means unverified.</p></article>
+      </div>
+      <div class="disclaimer"><strong>THE SERIOUS BIT.</strong> GMED reads public GitHub API evidence without authentication. It cannot determine which checks a branch requires, whether code was independently reviewed, or whether a passing test proves correct behavior. Anonymous GitHub API rate limits apply. On errors or incomplete evidence, verification is withheld.</div>
+    </section>
+  </main>
+  <footer><span>© 2026 PHI369 LABS · PEOPLE ABOVE PROFIT · LEDGER ABOVE EGO</span><span>*™ means “terribly memorable,” not a registered trademark.</span><a href="https://github.com/MichaelWave369/GMED/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT LICENSE ↗</a></footer>
+</div>
+</body>
+</html>
