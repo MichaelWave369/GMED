@@ -1,5 +1,6 @@
 import {inspect} from './src/github.js';
 import {assess,parseTarget} from './src/verifier.js';
+import {independentAudit,analyzeTrustGraph,DEFAULT_TRUST_GRAPH} from './src/ouroboros.js';
 
 const $=id=>document.getElementById(id);
 const form=$('verify-form'),repo=$('repo'),number=$('pr'),scan=$('scan'),demo=$('demo'),error=$('error'),result=$('result');
@@ -101,11 +102,87 @@ function render(report,{synthetic=false}={}){
   actions.append(share);
   const link=el('a','','VIEW PULL REQUEST ↗');link.href=report.target.url;link.target='_blank';link.rel='noreferrer';actions.append(link);
  }
+ const ouroPanel=(!synthetic&&report.target)?bindOuroboros(report,actions):null;
  result.append(actions);
+ if(ouroPanel)result.append(ouroPanel);
  result.append(el('p','receipt-caveat',synthetic
   ?'SYNTHETIC DEMO. These signals are invented solely to demonstrate the interface. This is not verification of any actual pull request.'
   :report.limits));
 }
+function displayOuroboros(panel,audit,primary){
+ clear(panel);
+ panel.className='ouro-panel '+(audit.state==='DUAL_MATCH'?'ouro-pass':'ouro-refused');
+ const top=el('div','ouro-header');
+ const token=audit.state==='DUAL_MATCH'?'DOUBLE-CHECK COMPLETE':
+  audit.state==='AGREED_NOT_GREEN'?'AGREED: NOT GREEN':
+  audit.state==='CYCLIC_TRUST'?'CIRCULAR TRUST BLOCKED':'INDEPENDENT MISMATCH';
+ top.append(el('span','ouro-kicker','RUNG 2 / OUROBOROS / FRESH PUBLIC GITHUB READ'),
+  el('h4','',token));
+ panel.append(top);
+ const stages=el('div','ouro-stages');
+ const source=el('div','ouro-stage');
+ source.append(el('span','','01 · EVIDENCE ROOT'),el('strong','','GitHub API'));
+ const first=el('div','ouro-stage');
+ first.append(el('span','','02 · PRIMARY CLASSIFIER'),el('strong','',primary.state));
+ const second=el('div','ouro-stage');
+ second.append(el('span','','03 · INDEPENDENT RE-OBSERVATION'),el('strong','',audit.independentState||'BLOCKED'));
+ stages.append(source,first,second);
+ panel.append(stages);
+ const summary=audit.state==='DUAL_MATCH'
+  ?'Both separately implemented classifiers reached GMED from two public GitHub reads. This does not constitute independent organizational verification or signed attestation.'
+  :audit.state==='AGREED_NOT_GREEN'
+  ?'The second auditor agrees with the first: no GMED green stamp is earned.'
+  :audit.state==='CYCLIC_TRUST'
+  ?'The trust dependency graph contains a self-reference or a dependency cycle. Verification is refused before fetching evidence.'
+  :'The two inspections disagree or a required evidence field changed. No recursive green stamp is awarded.';
+ panel.append(el('p','ouro-description',summary));
+ if(audit.discrepancies.length){
+  const list=el('ul','ouro-discrepancies');
+  audit.discrepancies.forEach(problem=>list.append(el('li','',problem)));
+  panel.append(list);
+ }
+ const info=el('div','ouro-foot');
+ info.append(el('span','','Re-observed: '+timeLabel(audit.observedAt)),
+   el('span','','Trust graph: '+(audit.trust.valid?'ACYCLIC':'REFUSED')));
+ panel.append(info);
+ const download=el('button','ouro-download','↓ EXPORT DUAL RECEIPT');
+ download.type='button';
+ download.addEventListener('click',()=>saveJson({
+  schema:'gmed-ouroboros-bundle:v1',primary,independentAudit:audit
+ }));
+ panel.append(download);
+ panel.append(el('p','ouro-caution',audit.limits));
+}
+function bindOuroboros(report,actions){
+ const button=el('button','ouro-trigger','↻ RUN OUROBOROS / SECOND OPINION');
+ button.type='button';
+ button.setAttribute('aria-label','Recheck this pull request using the independent Ouroboros verifier');
+ actions.append(button);
+ const panel=el('section','ouro-panel-host');
+ panel.setAttribute('aria-live','polite');
+ panel.setAttribute('aria-label','Ouroboros independent verification');
+ button.addEventListener('click',async()=>{
+  if(button.disabled)return;
+  button.disabled=true;
+  button.textContent='RE-READING GITHUB EVIDENCE…';
+  clear(panel);
+  panel.append(el('p','ouro-wait','Independent audit in progress. No green stamp issued yet.'));
+  try{
+   const audit=await independentAudit(report);
+   displayOuroboros(panel,audit,report);
+  }catch(e){
+   clear(panel);
+   panel.className='ouro-panel ouro-refused';
+   panel.append(el('h4','','INDEPENDENT VERIFICATION WITHHELD'),
+      el('p','',e instanceof Error?e.message:'Independent audit unavailable.'));
+  }finally{
+   button.disabled=false;
+   button.textContent='↻ RE-RUN OUROBOROS';
+  }
+ });
+ return panel;
+}
+
 function setBusy(value){
  busy=value;scan.disabled=value;demo.disabled=value;
  scan.querySelector('.run-label').textContent=value?'CHECKING EVIDENCE…':'VERIFY WITH GITHUB';
@@ -143,3 +220,21 @@ demo.addEventListener('click',()=>{
   observedAt:new Date().toISOString()});
  render({...report,target:{owner:'demo',repo:'synthetic',number:369}},{synthetic:true});
 });
+
+
+const loopButton=$('loop-demo');
+const loopResult=$('loop-result');
+if(loopButton&&loopResult){
+ loopButton.addEventListener('click',()=>{
+  const loop=structuredClone(DEFAULT_TRUST_GRAPH);
+  loop.find(node=>node.id==='gmed-primary').dependsOn.push('ouroboros-auditor');
+  const evaluation=analyzeTrustGraph(loop);
+  clear(loopResult);
+  loopResult.hidden=false;
+  loopResult.append(el('strong','','SIMULATED LOOP: '+(evaluation.valid?'NOT DETECTED':'BLOCKED')),
+    el('p','','GMED primary → Ouroboros auditor → GMED primary. This graph is intentionally circular and is not derived from a real GitHub inspection.'));
+  for(const cycle of evaluation.cycles){
+    loopResult.append(el('code','',cycle.join(' → ')));
+  }
+ });
+}
