@@ -30,9 +30,10 @@ jobs:
         run: |
           mkdir -p _site/src
           cp index.html app.js styles.css favicon.svg _site/
-          cp src/verifier.js src/github.js _site/src/
+          cp src/verifier.js src/github.js src/ouroboros.js _site/src/
           test -s _site/index.html
           test -s _site/src/verifier.js
+          test -s _site/src/ouroboros.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
