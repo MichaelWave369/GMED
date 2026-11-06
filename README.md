@@ -27,6 +27,12 @@ The [Gravity Encounter Laboratory](flyby.html) compares an ideal Sun-only comet 
 
 After Pages deployment: [Open the Gravity Encounter Laboratory](https://michaelwave369.github.io/GMED/flyby.html).
 
+## STARTRACE-5 Rung 4: Horizons source-vector intake and two-perturber comparison
+
+The [Horizons Ephemeris Intake Lab](precision.html) generates JPL Horizons API query links for Earth (399) and Moon (301) relative to the Sun (10), then validates downloaded vector tables locally for matching J2000 ecliptic coordinates, AU/day, TDB time, geometric correction state, and full interval coverage. With **both user-provided** tables, it interpolates the separate Earth and Moon trajectories and compares restricted Newtonian comet integration against R3's approximate Earth–Moon barycenter. There is **no bundled authentic ancient vector dataset** and no autonomous network retrieval. The data origin remains **unverified** even if its text headers pass. [R4 methodology and limitations](docs/STARTRACE_EPHEMERIS_R4.md).
+
+After Pages deployment: [Open Horizons source-vector lab](https://michaelwave369.github.io/GMED/precision.html).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
