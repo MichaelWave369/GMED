@@ -9,9 +9,10 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check app.js && node --check src/verifier.js && node --check src/github.js && node --check src/ouroboros.js && node --check scripts/gmed.mjs && node --check scripts/ouroboros.mjs && npm test",
+    "check": "node --check startrace-app.js && node --check src/startrace.js && node --check scripts/startrace.mjs && node --check app.js && node --check src/verifier.js && node --check src/github.js && node --check src/ouroboros.js && node --check scripts/gmed.mjs && node --check scripts/ouroboros.mjs && npm test",
     "verify": "node scripts/gmed.mjs",
-    "ouroboros": "node scripts/ouroboros.mjs"
+    "ouroboros": "node scripts/ouroboros.mjs",
+    "startrace": "node scripts/startrace.mjs"
   },
   "license": "MIT"
 }

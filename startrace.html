@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b101b">
+  <meta name="description" content="STARTRACE-5: transparent, evidence-first physics experiments for the 5 BCE comet hypothesis. No astronomical event is certified.">
+  <title>STARTRACE-5 // Historical Sky Evidence Laboratory</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./startrace.css">
+  <script type="module" src="./startrace-app.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <a class="logo" href="./" aria-label="Back to GMED"><span class="glyph">✳</span><span>GMED <small>/ STARTRACE-5</small></span></a>
+      <nav aria-label="STARTRACE navigation"><a href="#experiment">EXPERIMENT</a><a href="#ledger">EVIDENCE</a><a href="./docs/STARTRACE_5.md">METHOD</a><a href="./">← GMED</a></nav>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="hero-heading">
+        <p class="eyebrow">PHI369 LABS / AN OPEN-SOURCE RESEARCH EXPERIMENT / RUNG 1</p>
+        <h1 id="hero-heading">THE STAR THAT<br><em>SEEMED TO STOP.</em></h1>
+        <p class="lead">Could a comet near Earth briefly counteract the sky's normal apparent rotation? Explore the geometry, test the numbers, and inspect the source claims without mistaking a mathematical possibility for historical proof.</p>
+        <div class="hero-meta"><span><b>05 BCE</b> HISTORICAL QUESTION</span><span><b>2025</b> RESEARCH PAPER</span><span><b>0</b> CONFIRMED IDENTIFICATIONS</span></div>
+      </section>
+
+      <section class="notice" role="note"><strong>VERIFY THE CLAIM, NOT THE VIBE.</strong> This laboratory calculates simplified instantaneous geometry. It does not recreate an ancient sky, demonstrate that the comet existed on the modeled orbit, or independently verify extraterrestrial claims. See the <a href="./docs/STARTRACE_5.md">method and limits</a>.</section>
+
+      <section class="lab" id="experiment" aria-labelledby="lab-heading">
+        <div class="section-heading"><div><span class="index">01 / INTERACTIVE MODEL</span><h2 id="lab-heading">Geometry desk</h2></div><button type="button" id="reset">RESET INPUTS ↺</button></div>
+        <div class="experiment-grid">
+          <form class="controls" id="controls">
+            <div class="control"><label for="distanceAu">GEOCENTRIC DISTANCE <output id="distanceAuValue" for="distanceAu"></output></label><input id="distanceAu" type="range" min="0.0005" max="0.02" step="0.0001" value="0.0026"><small>AU (not an observed historical measurement)</small></div>
+            <div class="control"><label for="speedKmS">TRANSVERSE SPEED <output id="speedKmSValue" for="speedKmS"></output></label><input id="speedKmS" type="range" min="0" max="120" step="0.1" value="24.5"><small>km/s, assumed instantaneous relative speed</small></div>
+            <div class="control"><label for="periodYears">HYPOTHETICAL RETURN PERIOD <output id="periodYearsValue" for="periodYears"></output></label><input id="periodYears" type="range" min="1000" max="50000" step="100" value="13200"><small>Years; 13,200 is a Meier claim, not an observed comet period</small></div>
+            <div class="control"><label for="baselineKm">OBSERVER SEPARATION <output id="baselineKmValue" for="baselineKm"></output></label><input id="baselineKm" type="range" min="0" max="50" step="0.5" value="10"><small>Kilometers; simplified lateral parallax</small></div>
+            <div class="control"><label for="magnitudeDecrease">INTEGRATED BRIGHTENING <output id="magnitudeDecreaseValue" for="magnitudeDecrease"></output></label><input id="magnitudeDecrease" type="range" min="0" max="8" step="0.5" value="5"><small>Magnitude decrease; not a daytime visibility prediction</small></div>
+            <div class="form-actions"><button id="export" type="button">↓ EXPORT RESEARCH RECEIPT</button><p>Self-contained JSON with assumptions, sources and limitations.</p></div>
+          </form>
+          <div class="results" aria-live="polite">
+            <div class="hero-result"><span>REQUIRED SIDEWAYS SPEED / 13° PER HOUR</span><strong id="requiredSpeed">…</strong><small>km/s · rounded benchmark from Matney's paper</small></div>
+            <div class="metrics">
+              <div><small>ACTUAL ANGULAR RATE</small><strong id="actualRate">…</strong></div>
+              <div><small>RATE DIFFERENCE</small><strong id="residualRate">…</strong></div>
+              <div><small>BASELINE PARALLAX</small><strong id="parallax">…</strong></div>
+              <div><small>ORBITAL APHELION</small><strong id="aphelion">…</strong></div>
+              <div><small>ECCENTRICITY</small><strong id="eccentricity">…</strong></div>
+              <div><small>BRIGHTNESS FACTOR</small><strong id="brightness">…</strong></div>
+            </div>
+            <div class="chart-panel"><div class="chart-head"><h3>Distance versus required speed</h3><span>13°/h benchmark</span></div><svg id="speedChart" viewBox="0 0 650 258" role="img" aria-label="Line graph showing transverse speed needed for 13 degrees per hour as distance increases, and the chosen scenario point."></svg><p class="chart-foot">Blue line: speed that matches the rounded rate benchmark. Amber dot: your chosen distance and speed. Intersection does <strong>not</strong> establish a stationary object in the real sky.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ledger" id="ledger" aria-labelledby="ledger-heading">
+        <div class="section-heading"><div><span class="index">02 / SOURCE PROVENANCE</span><h2 id="ledger-heading">Evidence ledger</h2><p>Read each statement's type before drawing a conclusion.</p></div></div>
+        <div id="ledgerCards" class="ledger-grid"></div>
+      </section>
+      <section class="next">
+        <span class="index">03 / NEXT VALIDATION GATE</span>
+        <h2>What it would take to reproduce the ancient sky.</h2>
+        <p>Precise ephemerides, orbital frames, ancient time-scale uncertainty, a topocentric observer model, recorded initial conditions, and independently reproduced plots. Then, and only then, uncertainty ensembles and photometric contrast studies.</p>
+        <a href="./docs/STARTRACE_5.md">READ THE RESEARCH ROADMAP ↗</a>
+      </section>
+    </main>
+    <footer><span>STARTRACE-5 · PHI369 LABS · MIT · OPEN SCIENCE</span><span>MODEL ≠ OBSERVATION · ATTRIBUTION ≠ VERIFICATION</span><a href="https://github.com/MichaelWave369/GMED">SOURCE ↗</a></footer>
+  </div>
+</body>
+</html>
