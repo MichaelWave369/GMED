@@ -21,6 +21,10 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: |
+          node --check stress-app.js
+          node --check src/startrace-integrators.js
+          node --check src/startrace-r7.js
+          node --check scripts/startrace-gravity-audit.mjs
           node --check validate-app.js
           node --check src/startrace-validation.js
           node --check scripts/startrace-validate-horizons.mjs
@@ -47,8 +51,15 @@ jobs:
         run: npm run horizons-audit > /dev/null
       - name: Validate 30-minute withheld ephemeris samples
         run: npm run horizons-validate > /dev/null
+      - name: Audit comet gravity integrator convergence
+        run: npm run gravity-audit > /dev/null
       - name: Validate static entry points
         run: |
+          test -s stress.html
+          test -s stress.css
+          test -s stress-app.js
+          test -s docs/STARTRACE_GRAVITY_R7.md
+          grep -q 'id="stressPlot"' stress.html
           test -s validate.html
           test -s validate.css
           test -s validate-app.js
