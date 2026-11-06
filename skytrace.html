@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1420">
+  <meta name="description" content="STARTRACE-5: explore published candidate comet trajectories over Bethlehem, 5 BCE, with 3D solar-system geometry and honest uncertainty disclosures.">
+  <title>STARTRACE-5 | Ancient Sky / Rung 2</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./skytrace.css">
+  <script type="module" src="./skytrace-app.js"></script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="./startrace.html"><span class="mark">✳</span><span>STARTRACE<small> / 5</small></span></a>
+    <nav aria-label="Site navigation">
+      <a href="./startrace.html">GEOMETRY DESK</a>
+      <a href="#controls">CONTROL ROOM</a>
+      <a href="./docs/STARTRACE_SKY_R2.md">MODEL / LIMITS</a>
+      <a href="./">GMED ↗</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <div class="kicker"><span class="light"></span> ANCIENT SKY ENGINE / EXPERIMENT 02 / 5 BCE</div>
+      <h1>REPLAY AN<br><em>IMPOSSIBLE SKY.</em></h1>
+      <p>Step into a <strong>modeled</strong> Bethlehem sky. Explore the comet paths proposed in a 2025 research paper, rotate the 3D solar system, and see what changes when we alter the ancient time-scale assumptions.</p>
+      <div class="meta"><span>11 PUBLISHED CANDIDATES</span><span>JPL APPROXIMATE EARTH POSITION</span><span>NO HISTORICAL IDENTIFICATION</span></div>
+    </section>
+    <div class="boundary"><strong>SCIENTIFIC BOUNDARY</strong> These are reconstructed <em>candidate</em> trajectories, not tracked positions of a real comet. The Earth-Moon barycenter and ancient coordinates are approximate. Alternative curves are <strong>not</strong> statistical confidence intervals. Geometric position does not establish brightness or visibility.</div>
+
+    <section class="toolbar" id="controls" aria-labelledby="controls-title">
+      <div class="toolbar-title"><span>01 / MISSION CONTROL</span><h2 id="controls-title">Choose your observation</h2></div>
+      <div class="ctrlgrid">
+        <label class="field">PUBLISHED CANDIDATE
+          <select id="day" aria-label="Model candidate date">
+            <option value="3">June 3, 5 BCE</option><option value="4">June 4, 5 BCE</option>
+            <option value="5">June 5, 5 BCE</option><option value="6">June 6, 5 BCE</option>
+            <option value="7">June 7, 5 BCE</option><option value="8" selected>June 8, 5 BCE / featured</option>
+            <option value="9">June 9, 5 BCE</option><option value="10">June 10, 5 BCE</option>
+            <option value="11">June 11, 5 BCE</option><option value="12">June 12, 5 BCE</option>
+            <option value="13">June 13, 5 BCE</option>
+          </select>
+        </label>
+        <label class="field">LOCAL SOLAR TIME <output for="hour" id="hourValue">10:00</output>
+          <input type="range" id="hour" min="4" max="18" step="0.1" value="10" aria-label="Time of day from 4 to 18 hours">
+        </label>
+        <label class="field">ASSUMED ΔT <output for="deltaT" id="deltaValue">10,572 s</output>
+          <input type="range" id="deltaT" min="9972" max="11172" step="60" value="10572" aria-label="Ancient Delta T assumption in seconds">
+        </label>
+        <div class="field options">
+          <label class="check"><input type="checkbox" id="alternatives" checked> Compare all 11 scenarios</label>
+          <small>Spread of selected published models, not probabilities.</small>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="play" type="button">▶ PLAY SKY</button>
+        <button id="reset" type="button" class="secondary">↺ RESET VIEW</button>
+        <button id="export" type="button" class="secondary">↓ EXPORT RESEARCH JSON</button>
+      </div>
+    </section>
+    <section class="views">
+      <article class="view-card orbit-card">
+        <header><div><span class="section-no">02 / HELIOCENTRIC</span><h2>THE ORBIT ROOM</h2><p>Genuine 3D coordinate projection. Drag to rotate.</p></div><span class="tag">DRAG / ROTATE</span></header>
+        <div class="canvas-wrap"><canvas id="orbitCanvas" role="img" aria-label="Rotatable 3D heliocentric orbit view of Earth and candidate comets. Earth and comet paths use model coordinates.">Your browser requires canvas support.</canvas></div>
+        <div class="legend"><span><i class="sun"></i>SUN</span><span><i class="earth"></i>EARTH</span><span><i class="comet"></i>SELECTED COMET</span><span><i class="ghost"></i>ALTERNATIVES</span></div>
+      </article>
+      <article class="view-card sky-card">
+        <header><div><span class="section-no">03 / TOPOCENTRIC</span><h2>BETHLEHEM SKY</h2><p>Altitude–azimuth horizon projection, 31.7043° N.</p></div><span class="tag">NORTH UP</span></header>
+        <div class="canvas-wrap"><canvas id="skyCanvas" role="img" aria-label="Polar sky dome showing the modeled comet, Sun, horizon, and alternative scenarios viewed from Bethlehem.">Your browser requires canvas support.</canvas></div>
+        <div class="legend"><span><i class="comet"></i>COMET PATH</span><span><i class="sun"></i>SUN PATH</span><span><i class="ghost"></i>OTHER MODELS</span><span><i class="road"></i>ROAD 206°</span></div>
+      </article>
+    </section>
+    <section class="telemetry" aria-label="Simulated positions">
+      <div><span>COMET ALTITUDE</span><strong id="altitude">—</strong><small>Above astronomical horizon</small></div>
+      <div><span>COMET AZIMUTH</span><strong id="azimuth">—</strong><small>Clockwise from north</small></div>
+      <div><span>EARTH DISTANCE</span><strong id="distance">—</strong><small>Geocentric, approximate</small></div>
+      <div><span>SUN ALTITUDE</span><strong id="sunalt">—</strong><small>Daylight warning if above 0°</small></div>
+    </section>
+    <section class="reality">
+      <div><span class="section-no">04 / RESEARCH DISCIPLINE</span><h2>What you are actually looking at.</h2></div>
+      <div><p>The 11 trajectories are alternative orbital solutions <strong>published by Matney</strong>, each shown on its own proposed June date. They were selected from a larger search and are <strong>not</strong> independent observations or equally likely samples.</p><p>Earth is reconstructed with NASA JPL’s long-range approximate formula, and the comet follows an ideal parabolic, Sun-only orbit. The ancient time conversion and precession are approximate. An extremely close Earth encounter requires a higher-fidelity model for scientific reproduction.</p><a href="./docs/STARTRACE_SKY_R2.md">FULL REPRODUCIBILITY & LIMITATIONS ↗</a></div>
+    </section>
+  </main>
+  <footer><span>PHI369 LABS · STARTRACE-5 R2 · OPEN SCIENCE</span><span>MATHEMATICAL POSSIBILITY ≠ HISTORICAL IDENTIFICATION</span><a href="https://github.com/MichaelWave369/GMED">SOURCE ↗</a></footer>
+</div>
+</body>
+</html>

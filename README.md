@@ -15,6 +15,12 @@ The [STARTRACE-5 interactive lab](startrace.html) uses transparent orbital/obser
 
 CLI: `npm run startrace -- 0.0026 24.5 13200`. After a successful Pages deployment: [Launch STARTRACE-5](https://michaelwave369.github.io/GMED/startrace.html).
 
+## STARTRACE-5 Rung 2: candidate ancient sky visualization
+
+The [Ancient Sky Lab](skytrace.html) adds an interactive 3D heliocentric candidate orbit view and a topocentric Bethlehem sky dome with model-local solar time, playback, all 11 published Matney candidate curves, a ΔT sensitivity control, and conservative JSON export. Its Earth position comes from the NASA/JPL **approximate Earth-Moon barycenter** model for 3000 BCE–3000 CE. The comet uses Matney's published **candidate** parabolic orbital elements; no historical comet was independently tracked. This does **not** reproduce a rigorous ancient DE ephemeris, independently establish Figure 6 fidelity, or model actual daylight visibility. [R2 methodology](docs/STARTRACE_SKY_R2.md).
+
+After Pages deployment: [Explore Ancient Sky Rung 2](https://michaelwave369.github.io/GMED/skytrace.html).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
