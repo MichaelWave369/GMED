@@ -1,0 +1,37 @@
+{
+  "schema": "startrace-5:heldout-horizons-30min:v1",
+  "status": "SOURCE_DERIVED_NUMERIC_TABLE_UNVERIFIED_INDEPENDENTLY",
+  "retrievalDate": "2026-11-06",
+  "provenance": "JPL Horizons public API queries fetched through third-party text extraction; preserved numeric rows, minimal header; not byte-identical original responses or signed",
+  "sourceDeclaredModel": "DE441",
+  "timeScale": "TDB",
+  "reference": "J2000 ecliptic, Sun (10), geometric",
+  "units": "AU-D",
+  "window": {
+    "startJD": 1719755.52,
+    "endJD": 1719756.52,
+    "spacingMinutes": 30,
+    "samplesPerBody": 49,
+    "baselineSpacingMinutes": 180
+  },
+  "targets": [
+    {
+      "name": "earth",
+      "id": 399,
+      "path": "earth-399-30min-extract.txt",
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27399%27&OBJ_DATA=%27NO%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&START_TIME=%27JD+1719755.520000%27&STOP_TIME=%27JD+1719756.520000%27&STEP_SIZE=%2730+min%27&TIME_TYPE=%27TDB%27&REF_PLANE=%27ECLIPTIC%27&REF_SYSTEM=%27ICRF%27&OUT_UNITS=%27AU-D%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&VEC_LABELS=%27NO%27&CSV_FORMAT=%27YES%27&CAL_FORMAT=%27BOTH%27"
+    },
+    {
+      "name": "moon",
+      "id": 301,
+      "path": "moon-301-30min-extract.txt",
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27301%27&OBJ_DATA=%27NO%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&START_TIME=%27JD+1719755.520000%27&STOP_TIME=%27JD+1719756.520000%27&STEP_SIZE=%2730+min%27&TIME_TYPE=%27TDB%27&REF_PLANE=%27ECLIPTIC%27&REF_SYSTEM=%27ICRF%27&OUT_UNITS=%27AU-D%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&VEC_LABELS=%27NO%27&CSV_FORMAT=%27YES%27&CAL_FORMAT=%27BOTH%27"
+    }
+  ],
+  "provenanceWarnings": [
+    "Provider-declared model and source URLs are captured, but the preserved text has been normalized, not digitally authenticated.",
+    "These higher cadence samples belong to the SAME DE441 dynamical ephemeris as baseline; they are withheld from interpolation, not independent observational validation.",
+    "This validates numeric interpolation only for the recorded one-day window, not accuracy of the ancient ephemeris or the comet's historical orbit.",
+    "Some 30-minute timestamps coincide with 3-hour baseline knots; exclude those from heldout errors."
+  ]
+}
