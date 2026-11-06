@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1520">
+<meta name="description" content="STARTRACE-5 Rung 6: 30-minute withheld NASA Horizons-derived ephemeris interpolation accuracy audit.">
+<title>STARTRACE-5 / The Withheld Test</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./validate.css">
+<script type="module" src="./validate-app.js"></script>
+</head><body><div class="shell">
+<header class="top">
+<a href="./precision.html" class="brand"><b class="symbol">✳</b> STARTRACE <span>/ 05</span></a>
+<nav aria-label="STARTRACE navigation"><a href="./startrace.html">R1 / GEOMETRY</a><a href="./skytrace.html">R2 / SKY</a><a href="./flyby.html">R3 / GRAVITY</a><a href="./precision.html">R4–5 / HORIZONS</a><a href="./">GMED</a></nav>
+</header>
+<main>
+<section class="hero">
+<p class="eyebrow">PHI369 LABS / INTERPOLATION EXPERIMENT / RUNG 06</p>
+<h1>TRUST THE<br><em>POINTS WE HELD BACK.</em></h1>
+<p>Previously, we drew Earth and Moon trajectories between three-hourly NASA Horizons samples. Now we ask the same astronomical model for positions every 30 minutes and compare only the <strong>intermediate timestamps that our original curve never saw</strong>.</p>
+<div class="tags"><span>DE441 / DECLARED SOURCE</span><span>30-MINUTE SAMPLES</span><span>40 WITHHELD EPOCHS PER BODY</span><span>NO HISTORICAL COMET VERIFIED</span></div>
+</section>
+<div class="warning"><strong>SCIENTIFIC LIMIT:</strong> Both sets of numbers came from separate queries to the <em>same</em> DE441 ephemeris. This audit measures interpolation discrepancy, not DE441's physical error in 5 BCE. Retained source files are normalized extracts, not authenticated raw NASA responses.</div>
+<section class="method" aria-labelledby="setup">
+<div class="section-head"><span class="section-index">01 / HOW THE TEST WORKS</span><h2 id="setup">Nine shared knots. Forty unseen positions.</h2></div>
+<div class="steps">
+<div><strong>01</strong><span>BASELINE</span><p>Three-hour Earth and Moon vectors from the earlier Rung 5 source-derived dataset.</p></div>
+<div><strong>02</strong><span>WITHHELD</span><p>New 30-minute vectors obtained through a separate Horizons request, in the same declared frame and time scale.</p></div>
+<div><strong>03</strong><span>MEASURE</span><p>Exclude matching three-hour anchor timestamps; compare cubic Hermite predictions at the remaining 40 epochs.</p></div>
+</div>
+<div class="actions"><button type="button" id="run" class="primary">▶ RUN WITHHELD-EPOCH AUDIT</button><button type="button" id="export" disabled>↓ EXPORT REPRODUCIBLE JSON</button><span id="state" role="status">Source data not loaded. No numbers have been asserted.</span></div>
+<p id="error" class="error" hidden role="alert"></p>
+</section>
+<section class="readouts" aria-label="Interpolation discrepancy statistics">
+<div class="focus"><span>EARTH / MAX POSITION DIFFERENCE</span><strong id="earthMax">—</strong><small>Against withheld DE441-model samples</small></div>
+<div class="focus"><span>MOON / MAX POSITION DIFFERENCE</span><strong id="moonMax">—</strong><small>Against withheld DE441-model samples</small></div>
+<div><span>EARTH / RMS POSITION DIFFERENCE</span><strong id="earthRms">—</strong><small>40 non-knot epochs</small></div>
+<div><span>MOON / RMS POSITION DIFFERENCE</span><strong id="moonRms">—</strong><small>40 non-knot epochs</small></div>
+<div><span>EARTH–MOON RANGE / MAX DIFFERENCE</span><strong id="rangeMax">—</strong><small>Difference of computed scalar ranges</small></div>
+<div><span>VERIFIED SOURCE AUTHENTICITY</span><strong class="negative">NO</strong><small>Only normalized extracts and re-query URLs</small></div>
+</section>
+<section class="graph-section" aria-label="Heldout interpolation residual chart">
+<header class="graph-head"><div><span class="section-index">02 / CHART</span><h2>Where does interpolation drift?</h2><p>Same-model numeric deviations. Lower is closer agreement with the separately queried 30-minute values.</p></div></header>
+<div class="modes" role="group" aria-label="Chart measurement">
+<button type="button" id="modePosition" aria-pressed="true">POSITION / METERS</button>
+<button type="button" id="modeVelocity" aria-pressed="false">VELOCITY / METERS PER SECOND</button>
+<button type="button" id="modeRange" aria-pressed="false">EARTH–MOON RANGE / METERS</button>
+</div>
+<canvas id="chart" role="img" aria-label="Chart of Earth and Moon withheld interpolation errors versus the Julian-day interval.">A canvas-capable browser is required.</canvas>
+<div class="legend"><span><i class="earth"></i> EARTH</span><span><i class="moon"></i> MOON</span><span><i class="range"></i> RANGE ONLY</span></div>
+<p class="chart-note">Time runs from the selected June 8 Horizons epoch through 24 hours. The nine common three-hour knots have intentionally been omitted from error statistics and plotting.</p>
+</section>
+<section class="sources" aria-labelledby="sources-title"><div><span class="section-index">03 / PROVENANCE</span><h2 id="sources-title">Make every number accountable.</h2><p>We preserve the provider queries and source-derived samples in GitHub so anyone can rerun the same test. The project does not claim a NASA digital signature or that the underlying historical ephemeris has been independently confirmed.</p></div>
+<div class="source-links"><a id="earthLink" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noreferrer">OPEN EARTH 30-MINUTE QUERY ↗</a><a id="moonLink" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noreferrer">OPEN MOON 30-MINUTE QUERY ↗</a><a href="./docs/STARTRACE_HORIZONS_R6.md">FULL METHOD & SCIENTIFIC LIMITS ↗</a><a href="./data/horizons-5bce/heldout-manifest.json">VIEW SOURCE MANIFEST ↗</a></div></section>
+</main><footer><span>STARTRACE-5 / RUNG 06 / PHI369 LABS</span><span>AN INTERPOLATION CHECK IS NOT A HISTORICAL IDENTIFICATION</span><a href="https://github.com/MichaelWave369/GMED">SOURCE ↗</a></footer>
+</div></body></html>
