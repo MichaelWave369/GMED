@@ -87,3 +87,7 @@ Crucial scientific limits:
 **Outcome contract:** \`CONDITIONAL_IMPORTED_VECTOR_EXPERIMENT\`; explicit false flags for historical comet identification, cryptographic Horizons authenticity, full precision reconstruction and independent verification.
 
 The next scientific rung is to retrieve **public, independently reproducible, authoritative DE441 Earth and Moon vector bundles**, verify their origin, quantify interpolation residuals against withheld samples, and update the comet's fitted initial state under gravity-aware dynamics. This requires actual authoritative data, not purely plausible model output.
+
+## November 2026 Rung 5 addendum
+
+Rung 5 now includes a **normalized, source-derived extract** from NASA/JPL Horizons for the featured June 8 candidate and offers one-click loading in the R4 web app. The earlier R4 description of an empty data bundle applies to R4 at its original release, **not** the current main branch after R5. See [R5 source data and provenance](STARTRACE_HORIZONS_R5.md) and the source [manifest](../data/horizons-5bce/manifest.json). The extract is not a cryptographic NASA attestation.

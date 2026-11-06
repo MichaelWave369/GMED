@@ -21,7 +21,7 @@
 <p>Our comet orbit is still a hypothesis. But our Earth and Moon positions can come from an astronomical ephemeris. Bring in <strong>separate, traceable Horizons vector tables</strong>, reject incompatible data, and see how the gravity calculation changes.</p>
 <div class="tags"><span>JPL HORIZONS INPUT</span><span>EARTH 399 + MOON 301</span><span>FRAME CHECKS</span><span>NO SYNTHETIC DATA PRESENTED AS REAL</span></div>
 </section>
-<div class="warning"><strong>RESEARCH BOUNDARY:</strong> This tool never fetches or invents ancient data. You supply downloaded Horizons tables. Header validation does not authenticate NASA or verify that the dataset uses DE441. A valid input does not validate Matney's proposed historical comet orbit.</div>
+<div class="warning"><strong>RESEARCH BOUNDARY:</strong> This lab includes a <em>source-derived, normalized extract</em> from NASA Horizons for the featured June 8 scenario; its numeric rows were obtained from the official API but the extracted files are not byte-identical signed NASA originals. You can also supply fresh Horizons tables. Header validation does not establish source authenticity or confirm any historical comet orbit.</div>
 <section class="source" id="source">
 <header class="section-head"><span class="index">01 / ACQUIRE SOURCE TABLES</span><h2>Two bodies. Two source receipts.</h2><p>Generate matching official query links and load the resulting plain-text tables locally. Nothing is uploaded to Phi369 servers.</p></header>
 <div class="settings">
@@ -40,6 +40,13 @@
 <label class="file-label" for="earthFile">LOAD EARTH RESPONSE .TXT</label><input id="earthFile" type="file" accept=".txt,.csv,text/plain"><div id="earthStatus" class="source-status">NO SOURCE LOADED</div></article>
 <article class="source-card"><span class="source-label">SOURCE B / BODY CENTER 301</span><h3>Moon</h3><p>Same Sun origin, frame, units, time scale and sampled interval as the Earth table.</p><a id="moonUrl" target="_blank" rel="noreferrer" href="https://ssd.jpl.nasa.gov/horizons/">OPEN OFFICIAL HORIZONS QUERY ↗</a>
 <label class="file-label" for="moonFile">LOAD MOON RESPONSE .TXT</label><input id="moonFile" type="file" accept=".txt,.csv,text/plain"><div id="moonStatus" class="source-status">NO SOURCE LOADED</div></article>
+</div>
+<div class="sample-panel">
+  <div><span class="index">RUNG 05 / FIRST REAL DATASET</span><h3>June 8, 5 BCE · Earth + Moon</h3>
+    <p>One-click access to 26 paired, three-hourly NASA Horizons-derived vector samples. Preserved with original API query links and a provenance manifest. <strong>Not a signed or independently authenticated NASA dataset.</strong></p>
+  </div>
+  <button id="loadSnapshot" type="button">LOAD SOURCE-DERIVED JUNE 8 SNAPSHOT</button>
+  <p id="snapshotStatus" role="status">No bundled snapshot loaded.</p>
 </div>
 <p class="hint">Choose <strong>Save page as text</strong> after opening the Horizons API response, then load each file here. Both response headers must identify the correct target, Sun center, J2000 ecliptic frame, AU-D units, geometric vectors, and TDB time. Outputs must cover the entire simulation interval.</p>
 </section>
