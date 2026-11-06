@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#091422">
+<meta name="description" content="STARTRACE-5 R4: fail-closed JPL Horizons Earth and Moon vector importer for conditional gravity calculations.">
+<title>STARTRACE-5 / Ephemeris Intake</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./precision.css">
+<script type="module" src="./precision-app.js"></script>
+</head>
+<body><div class="shell">
+<header class="top">
+<a class="brand" href="./flyby.html">✳ STARTRACE <span>/ 05</span></a>
+<nav aria-label="Navigation"><a href="./startrace.html">R1 / GEOMETRY</a><a href="./skytrace.html">R2 / SKY</a><a href="./flyby.html">R3 / GRAVITY</a><a href="#source">R4 / SOURCES</a><a href="./">GMED</a></nav>
+</header>
+<main>
+<section class="hero">
+<p class="index">PHI369 LABS / VALIDATE THE INPUTS BEFORE THE MODEL / RUNG 04</p>
+<h1>MAKE THE SKY<br><em>ACCOUNTABLE.</em></h1>
+<p>Our comet orbit is still a hypothesis. But our Earth and Moon positions can come from an astronomical ephemeris. Bring in <strong>separate, traceable Horizons vector tables</strong>, reject incompatible data, and see how the gravity calculation changes.</p>
+<div class="tags"><span>JPL HORIZONS INPUT</span><span>EARTH 399 + MOON 301</span><span>FRAME CHECKS</span><span>NO SYNTHETIC DATA PRESENTED AS REAL</span></div>
+</section>
+<div class="warning"><strong>RESEARCH BOUNDARY:</strong> This tool never fetches or invents ancient data. You supply downloaded Horizons tables. Header validation does not authenticate NASA or verify that the dataset uses DE441. A valid input does not validate Matney's proposed historical comet orbit.</div>
+<section class="source" id="source">
+<header class="section-head"><span class="index">01 / ACQUIRE SOURCE TABLES</span><h2>Two bodies. Two source receipts.</h2><p>Generate matching official query links and load the resulting plain-text tables locally. Nothing is uploaded to Phi369 servers.</p></header>
+<div class="settings">
+<label>PUBLISHED COMET CANDIDATE
+<select id="day">
+<option value="3">June 3, 5 BCE</option><option value="4">June 4</option><option value="5">June 5</option><option value="6">June 6</option><option value="7">June 7</option><option value="8" selected>June 8 / featured</option><option value="9">June 9</option><option value="10">June 10</option><option value="11">June 11</option><option value="12">June 12</option><option value="13">June 13</option>
+</select></label>
+<label>ANCHOR BEFORE NOON <output id="leadLabel">2.0 days</output><input type="range" id="leadDays" min=".5" max="5" step=".5" value="2"></label>
+<label>MODEL ΔT <output id="deltaLabel">10,572 seconds</output><input type="range" id="deltaTSeconds" min="9972" max="11172" step="60" value="10572"></label>
+<label>INTEGRATION STEP
+<select id="stepHours"><option value=".25">15 minutes</option><option value=".5" selected>30 minutes</option><option value="1">60 minutes</option></select>
+</label>
+</div>
+<div class="source-grid">
+<article class="source-card"><span class="source-label">SOURCE A / BODY CENTER 399</span><h3>Earth</h3><p>Heliocentric geometric J2000 ecliptic vectors in AU/day, timed in TDB.</p><a id="earthUrl" target="_blank" rel="noreferrer" href="https://ssd.jpl.nasa.gov/horizons/">OPEN OFFICIAL HORIZONS QUERY ↗</a>
+<label class="file-label" for="earthFile">LOAD EARTH RESPONSE .TXT</label><input id="earthFile" type="file" accept=".txt,.csv,text/plain"><div id="earthStatus" class="source-status">NO SOURCE LOADED</div></article>
+<article class="source-card"><span class="source-label">SOURCE B / BODY CENTER 301</span><h3>Moon</h3><p>Same Sun origin, frame, units, time scale and sampled interval as the Earth table.</p><a id="moonUrl" target="_blank" rel="noreferrer" href="https://ssd.jpl.nasa.gov/horizons/">OPEN OFFICIAL HORIZONS QUERY ↗</a>
+<label class="file-label" for="moonFile">LOAD MOON RESPONSE .TXT</label><input id="moonFile" type="file" accept=".txt,.csv,text/plain"><div id="moonStatus" class="source-status">NO SOURCE LOADED</div></article>
+</div>
+<p class="hint">Choose <strong>Save page as text</strong> after opening the Horizons API response, then load each file here. Both response headers must identify the correct target, Sun center, J2000 ecliptic frame, AU-D units, geometric vectors, and TDB time. Outputs must cover the entire simulation interval.</p>
+</section>
+<section class="result-section">
+<div class="section-head"><span class="index">02 / RUN THE COMPARISON</span><h2>Separate lunar gravity. No shortcuts.</h2></div>
+<div class="actions"><button id="run" class="primary" type="button" disabled>COMPARE SOURCE-BACKED MODEL</button><button id="export" type="button" disabled>↓ EXPORT RESEARCH RECEIPT</button><span id="stateLabel">Awaiting two accepted tables</span></div>
+<p id="error" class="error" role="alert" hidden></p>
+<div class="metrics">
+<div><small>EARTH PROXY DIFFERENCE / MAX</small><strong id="earthDifference">—</strong><p>Imported Earth vs R3 approximate barycenter</p></div>
+<div><small>COMET MODEL DEVIATION / MAX</small><strong id="cometDifference">—</strong><p>Separate Earth + Moon vs combined-barycenter gravity</p></div>
+<div><small>NUMERICAL STEP DIFFERENCE / MAX</small><strong id="stepDifference">—</strong><p>Half-step convergence, not physical accuracy</p></div>
+<div><small>EARTH–MOON SEPARATION / MAX</small><strong id="moonSeparation">—</strong><p>Computed from uploaded vectors</p></div>
+</div>
+<div class="chart-card"><h3>How much does the model shift?</h3><p>Difference between two hypothetical comet trajectories, using Earth–Moon data from your input files. No probability or historical claim.</p><canvas id="differencePlot" role="img" aria-label="Line graph showing model trajectory separation by local time after importing both source tables.">A canvas-capable browser is required.</canvas><div class="chart-foot">R3 uses an approximate combined Earth–Moon point mass. R4 uses separate Earth and Moon perturbations from the supplied tables. Differences can include approximate background ephemeris error as well as the changed gravity model.</div></div>
+</section>
+<section class="next"><div><span class="index">03 / WHAT STILL REMAINS</span><h2>Imported isn't authenticated.<br>Calculated isn't observed.</h2></div><div><p>A forged text file can pass header checks. The exported receipt records SHA-256 hashes so source bytes can be reproduced and independently inspected, but a hash alone cannot prove NASA issued the file.</p><p>Beyond this gate, a rigorous study must record authoritative DE441 data provenance, use a verified calendar and timescale conversion, re-fit candidate comet orbital states using full dynamics, and compare against independent software.</p><a href="./docs/STARTRACE_EPHEMERIS_R4.md">READ THE METHOD & LIMITATIONS ↗</a></div></section>
+</main>
+<footer><span>STARTRACE-5 / PHI369 LABS / LEDGER ABOVE EGO</span><span>MODEL INPUTS ARE UNTRUSTED DATA UNTIL VERIFIED</span><a href="https://github.com/MichaelWave369/GMED">SOURCE ↗</a></footer>
+</div></body></html>
