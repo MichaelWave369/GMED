@@ -118,9 +118,16 @@ function stateTimeline(candidate,jdStart,sampleJds,stepHours,massMultiplier){
   return {states,steps};
 }
 function separationDegrees(a,b){
+  // atan2(|a x b|, a·b) is stable for tiny angular differences;
+  // acos(dot/(|a||b|)) can falsely report a nonzero angle for identical vectors.
   const la=norm(a),lb=norm(b);
   if(la<=0||lb<=0)throw new RangeError('Cannot compare zero-length direction');
-  return Math.acos(clamp(dot(a,b)/(la*lb),-1,1))*180/Math.PI;
+  const cross=[
+    a[1]*b[2]-a[2]*b[1],
+    a[2]*b[0]-a[0]*b[2],
+    a[0]*b[1]-a[1]*b[0]
+  ];
+  return Math.atan2(norm(cross),dot(a,b))*180/Math.PI;
 }
 export function evaluateFlyby(options={}){
   const p=validate(options);
