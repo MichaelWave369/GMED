@@ -33,6 +33,12 @@ The [Horizons Ephemeris Intake Lab](precision.html) generates JPL Horizons API q
 
 After Pages deployment: [Open Horizons source-vector lab](https://michaelwave369.github.io/GMED/precision.html).
 
+## STARTRACE-5 Rung 5: first Horizons-derived historical Earth/Moon numerical snapshot
+
+We retrieved **two vector tables from NASA/JPL Horizons** on November 6, 2026: Sun-centered Earth (399) and Moon (301), J2000 ecliptic frame, TDB Julian dates and AU/day units, sampling every 3 hours around June 8, 5 BCE. The [R4 lab](precision.html) now has a one-click **source-derived June 8 snapshot** option, along with the existing individual user-file loaders. The 26 paired numeric rows are retained in [`data/horizons-5bce/`](data/horizons-5bce/manifest.json) with original reproducible API query URLs, and regression tests actually run the two-perturber experiment against these numbers.
+
+**Provenance boundary:** the preserved text is a normalized extraction of an official API response, not byte-identical signed output. Our tests check internal mathematical and frame consistency; they do **not** authenticate the issuing server or recover the ancient comet orbit. [R5 methods, source and provenance](docs/STARTRACE_HORIZONS_R5.md).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.

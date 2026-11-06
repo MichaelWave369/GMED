@@ -28,10 +28,15 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Stage exact static artifact
         run: |
-          mkdir -p _site/src _site/docs
+          mkdir -p _site/src _site/docs _site/data/horizons-5bce
           cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js skytrace.html skytrace.css skytrace-app.js flyby.html flyby.css flyby-app.js precision.html precision.css precision-app.js _site/
           cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js src/startrace-sky.js src/startrace-flyby.js src/startrace-horizons.js src/startrace-precision.js _site/src/
           cp docs/STARTRACE_5.md docs/STARTRACE_SKY_R2.md docs/STARTRACE_FLYBY_R3.md docs/STARTRACE_EPHEMERIS_R4.md _site/docs/
+          cp data/horizons-5bce/earth-399-extract.txt data/horizons-5bce/moon-301-extract.txt data/horizons-5bce/manifest.json _site/data/horizons-5bce/
+          cp docs/STARTRACE_HORIZONS_R5.md _site/docs/
+          test -s _site/data/horizons-5bce/earth-399-extract.txt
+          test -s _site/data/horizons-5bce/moon-301-extract.txt
+          test -s _site/data/horizons-5bce/manifest.json
           test -s _site/precision.html
           test -s _site/src/startrace-horizons.js
           test -s _site/src/startrace-precision.js

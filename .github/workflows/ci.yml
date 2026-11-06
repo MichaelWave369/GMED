@@ -41,6 +41,11 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Validate static entry points
         run: |
+          test -s data/horizons-5bce/manifest.json
+          test -s data/horizons-5bce/earth-399-extract.txt
+          test -s data/horizons-5bce/moon-301-extract.txt
+          test -s docs/STARTRACE_HORIZONS_R5.md
+          grep -q 'id="loadSnapshot"' precision.html
           test -s precision.html
           test -s precision.css
           test -s docs/STARTRACE_EPHEMERIS_R4.md

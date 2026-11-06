@@ -46,6 +46,49 @@ for(const body of ['earth','moon']){
   ready();
  });
 }
+// R5: offline-friendly, same-origin, source-derived numerical snapshot.
+// This is not a NASA-signed raw response. Both source tables are staged
+// together and applied atomically to prevent an Earth-only half-load.
+$('loadSnapshot').addEventListener('click',async()=>{
+ const button=$('loadSnapshot'),status=$('snapshotStatus');
+ button.disabled=true;status.textContent='Loading the two normalized vector extracts…';
+ invalidate();
+ try{
+  const prefix='./data/horizons-5bce/';
+  const [manifestResponse,earthResponse,moonResponse]=await Promise.all([
+    fetch(prefix+'manifest.json'),
+    fetch(prefix+'earth-399-extract.txt'),
+    fetch(prefix+'moon-301-extract.txt')
+  ]);
+  if(!manifestResponse.ok||!earthResponse.ok||!moonResponse.ok)
+    throw new Error('A bundled dataset file was unavailable; static Pages staging may be incomplete');
+  const manifest=await manifestResponse.json();
+  if(manifest.schema!=='startrace-5:derived-horizons-snapshot:v1'||
+     manifest.status!=='SOURCE_DERIVED_NUMERIC_TABLE_UNVERIFIED_INDEPENDENTLY')
+    throw new Error('Unexpected or unsupported source provenance manifest');
+  const [earthText,moonText]=await Promise.all([earthResponse.text(),moonResponse.text()]);
+  const e=parseHorizons(earthText,'earth'),m=parseHorizons(moonText,'moon');
+  if(e.count!==26||m.count!==26||e.startJD!==m.startJD||e.endJD!==m.endJD)
+    throw new Error('Source-derived snapshot did not match its expected 26-row pairing');
+  config.day=8;config.leadDays=2;config.deltaTSeconds=10572;config.stepHours=.5;
+  for(const key of ['day','leadDays','deltaTSeconds','stepHours'])$(key).value=String(config[key]);
+  renderLinks();
+  raw.earth=earthText;raw.moon=moonText;
+  source.earth=e;source.moon=m;
+  for(const [body,parsed] of [['earth',e],['moon',m]]){
+    $(body+'Status').className='source-status ready';
+    $(body+'Status').textContent='SOURCE-DERIVED SNAPSHOT: '+parsed.count+
+      ' samples, '+fmt(parsed.startJD,3)+'–'+fmt(parsed.endJD,3)+
+      ' JD (TDB). NASA API-derived numeric rows, authenticity not independently verified.';
+  }
+  ready();
+  status.textContent='Source-derived Earth/Moon samples loaded. Model remains conditional and unverified historically.';
+  $('run').click();
+ }catch(err){
+  source.earth=null;source.moon=null;raw.earth=null;raw.moon=null;ready();
+  status.textContent='SNAPSHOT REFUSED: '+(err instanceof Error?err.message:String(err));
+ }finally{button.disabled=false;}
+});
 $('run').addEventListener('click',()=>{
  const error=$('error');error.hidden=true;
  try{
@@ -91,7 +134,7 @@ function paint(samples){
  const left=60,right=20,top=25,bottom=36;
  if(samples.length===0){
   ctx.textAlign='center';ctx.fillStyle='#96b5c0';ctx.font='13px system-ui';
-  ctx.fillText('No authentic source data provided yet.',width/2,height/2);
+  ctx.fillText('Load NASA-derived June 8 sample or provide your own Horizons tables.',width/2,height/2);
   return;
  }
  const max=Math.max(1,...samples.map(x=>x.shiftKm))*1.13;
