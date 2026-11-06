@@ -45,7 +45,7 @@ export function restrictedCometDerivative(earth,moon,{
   const r=s.slice(0,3),radius=norm(r);
   if(radius<.001)throw new Error('SUN_CLOSE_APPROACH_EXCLUSION');
   const acceleration=r.map(x=>-MU_SUN*x/radius**3);
-  if(!sunOnly&&massMultiplier!==0){
+  if(!sunOnly&&(massMultiplier!==0||tracker)){
    for(const [name,data,mu,cutoffKm] of [
      ['EARTH',earth,MU_EARTH,15000],
      ['MOON',moon,MU_MOON,7000]
@@ -56,7 +56,7 @@ export function restrictedCometDerivative(earth,moon,{
     if(distance*AU_KM<=cutoffKm)
       throw new Error(name+'_CLOSE_APPROACH_EXCLUSION');
     if(central<.5)throw new Error('INVALID_HELIOCENTRIC_BODY_POSITION');
-    for(let i=0;i<3;i++)
+    if(massMultiplier!==0)for(let i=0;i<3;i++)
       acceleration[i]+=massMultiplier*mu*(sep[i]/distance**3-body[i]/central**3);
    }
   }
