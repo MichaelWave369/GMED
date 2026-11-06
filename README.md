@@ -57,6 +57,16 @@ Run `npm run gravity-audit` to emit a JSON scientific receipt, or use `npm run g
 
 After successful Pages deployment: [Launch R7 Solver Stress Lab](https://michaelwave369.github.io/GMED/stress.html).
 
+## STARTRACE-5 Rung 8: externally maintained SciPy numerical reference
+
+The [Cross-Language Solver Audit](reference.html) compares the existing R7 hypothetical comet's JavaScript adaptive RK45 state with a separately implemented **Python SciPy DOP853 (8th-order)** trajectory. The Python side independently implements cubic Hermite Earth/Moon source interpolation, restricted gravitational acceleration, and step guardrails, using **exactly the same** hypothetical candidate initial state and stored normalized Horizons-derived vectors.
+
+The build exports a deterministic reference case, runs pinned **SciPy 1.18.1** in GitHub Actions, and rejects incorrect source hashes, mismatched epochs, bad or nonfinite metrics, solver misidentification and prohibited scientific claims. The vetted `data/solver-r8-report.json` is generated and staged **only during a successful Pages build**. All existing R1–R7 browser labs remain dependency-free and run without Python.
+
+**Strict scientific limit:** this validates an external *numerical implementation* under the same physical model. It does not prove Matney's hypothetical comet orbit, authenticate NASA source extracts or establish ancient observations. [R8 reproducibility and limitations](docs/STARTRACE_SCIPY_R8.md).
+
+After successful deployment: [SciPy Reference Laboratory](https://michaelwave369.github.io/GMED/reference.html).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
