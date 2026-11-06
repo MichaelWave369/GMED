@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1520">
+<meta name="description" content="STARTRACE-5 Rung 7: numerically stress test a hypothetical ancient comet with RK4 and adaptive Dormand–Prince RK45.">
+<title>STARTRACE-5 / Comet Solver Stress Test</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./validate.css">
+<link rel="stylesheet" href="./stress.css">
+<script type="module" src="./stress-app.js"></script>
+</head><body><div class="shell">
+<header class="top">
+<a href="./validate.html" class="brand"><b class="symbol">✳</b> STARTRACE <span>/ 05</span></a>
+<nav aria-label="STARTRACE navigation">
+<a href="./skytrace.html">R2 / SKY</a><a href="./flyby.html">R3 / GRAVITY</a>
+<a href="./precision.html">R4–5 / HORIZONS</a><a href="./validate.html">R6 / VALIDATION</a>
+<a href="./">GMED</a></nav>
+</header>
+<main>
+<section class="hero">
+<p class="eyebrow">PHI369 LABS / NUMERICAL STRESS CHAMBER / RUNG 07</p>
+<h1>DON'T JUST<br><em>TRUST THE ORBIT.</em></h1>
+<p>Put a hypothetical 5 BCE comet through two distinct numerical integration algorithms. Compare the original fixed RK4 solver with adaptive <strong>Dormand–Prince RK45</strong> and see when computational uncertainty or unsafe proximity forces us to stop.</p>
+<div class="tags"><span>ADAPTIVE STEP CONTROL</span><span>INDEPENDENT CODE PATHS</span><span>NASA-DERIVED EARTH + MOON VECTORS</span><span>HISTORICAL ORBIT UNVERIFIED</span></div>
+</section>
+<div class="warning"><strong>SCIENTIFIC BOUNDARY:</strong> These numerical solvers share the same simplified force equations and hypothetical Matney initial orbit. Numerical agreement is <strong>not</strong> independent physical verification. All ephemeris inputs are normalized, source-derived extracts and are not cryptographically authenticated NASA originals.</div>
+<section class="method" id="controls" aria-labelledby="setup">
+<div class="section-head"><span class="section-index">01 / EXPERIMENT SETTINGS</span><h2 id="setup">Cross-examine the integrators.</h2></div>
+<div class="settings">
+<label>COMET CANDIDATE <span class="fixed">JUNE 8, 5 BCE</span><small>Only this scenario has matched source-derived ephemeris coverage.</small></label>
+<label>RK4 FIXED STEP<select id="stepHours"><option value="1">60 minutes</option><option value=".5" selected>30 minutes</option><option value=".25">15 minutes</option></select></label>
+<label>RK45 RELATIVE TOLERANCE<select id="rtol"><option value="1e-8">10⁻⁸ · exploratory</option><option value="1e-10" selected>10⁻¹⁰ · baseline</option><option value="1e-11">10⁻¹¹ · stricter</option></select></label>
+<label>RK45 MAXIMUM STEP<select id="maxAdaptiveStepMinutes"><option value="30" selected>30 minutes</option><option value="15">15 minutes</option><option value="5">5 minutes</option></select></label>
+<label>EARTH + MOON GRAVITY<select id="massMultiplier"><option value="1" selected>ON · 1× mass</option><option value="0">OFF · Sun-only control</option></select></label>
+<label>START INTEGRATION<select id="leadDays"><option value="2" selected>2 days before local noon</option><option value="1">1 day before local noon</option></select></label>
+</div>
+<div class="actions"><button id="run" type="button" class="primary">▶ RUN SOLVER STRESS TEST</button><button id="export" disabled type="button">↓ EXPORT RESEARCH RECEIPT</button><span id="status" role="status">No numerical claim has been calculated yet.</span></div>
+<p class="error" id="error" role="alert" hidden></p>
+</section>
+<section class="readouts" aria-label="Computed solver diagnostics">
+<div class="focus"><span>MAX OLD RK4 VS ADAPTIVE RK45</span><strong id="legacy">—</strong><small>Heliocentric 3D position difference</small></div>
+<div class="focus"><span>MAX SEPARATE RK4 VS ADAPTIVE</span><strong id="fixed">—</strong><small>Same force model, different integration method</small></div>
+<div><span>RK4 HALF-STEP DIFFERENCE / MAX</span><strong id="refinement">—</strong><small>Numerical convergence diagnostic</small></div>
+<div><span>CLOSEST SAMPLED EARTH DISTANCE</span><strong id="earthRange">—</strong><small>Not the exact closest approach</small></div>
+<div><span>ADAPTIVE STEPS ACCEPTED / REJECTED</span><strong id="steps">—</strong><small>Numerical error-control decisions</small></div>
+<div><span>SUN-ONLY ANALYTIC CHECK / MAX</span><strong id="sunReference">—</strong><small>Separate two-body parabolic benchmark</small></div>
+</section>
+<section class="graph-section">
+<header class="graph-head"><div><span class="section-index">02 / MODEL DIAGNOSTICS</span><h2>Watch the calculators disagree.</h2><p>Differences are between algorithms, not a measured uncertainty in the actual ancient sky.</p></div></header>
+<div class="modes" role="group" aria-label="Graph mode">
+<button type="button" id="modeDeviation" aria-pressed="true">SOLVER POSITION DIFFERENCES</button>
+<button type="button" id="modeDistance" aria-pressed="false">SAMPLED EARTH/MOON RANGES</button></div>
+<canvas id="stressPlot" role="img" aria-label="Comparison graph across local solar time for the hypothetical June 8 comet orbit">Canvas-supported browser required.</canvas>
+<div class="legend"><span><i class="earth"></i> RK4 LEGACY / EARTH</span><span><i class="moon"></i> RK4 SEPARATE / MOON</span><span><i class="range"></i> RK4 HALF-STEP</span></div>
+<p class="chart-note">The displayed closest approach is sampled at the same output hours, not located by a continuous event finder. Planetary positions are provided by the existing three-hour Horizons-derived source data.</p>
+</section>
+<section class="sources">
+<div><span class="section-index">03 / EVIDENCE BOUNDARY</span><h2>Convergence is not confirmation.</h2>
+<p>When two methods agree, they establish numerical consistency for a <em>chosen mathematical model</em>. To test whether the model describes nature, we still need independently verified force implementations, reliable historical source constraints and a gravity-aware orbit determination.</p>
+<p>Close-approach exclusions and step budgets make the program refuse scenarios it cannot handle safely.</p>
+</div>
+<div class="source-links">
+<a href="./docs/STARTRACE_GRAVITY_R7.md">FULL SCIENTIFIC METHOD AND LIMITS ↗</a>
+<a href="./validate.html">REVIEW THE R6 EPHEMERIS INTERPOLATION AUDIT ↗</a>
+<a href="./data/horizons-5bce/manifest.json">REVIEW EARTH/MOON SOURCE MANIFEST ↗</a>
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.RK45.html" target="_blank" rel="noreferrer">REVIEW RK45 ALGORITHM REFERENCE ↗</a>
+</div></section>
+</main><footer><span>STARTRACE-5 / PHI369 LABS / RUNG 07</span><span>ACCURATE CODE ≠ ACCURATE HISTORY</span><a href="https://github.com/MichaelWave369/GMED">SOURCE ↗</a></footer>
+</div></body></html>
