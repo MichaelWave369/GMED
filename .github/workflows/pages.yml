@@ -29,9 +29,11 @@ jobs:
       - name: Stage exact static artifact
         run: |
           mkdir -p _site/src _site/docs
-          cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js _site/
-          cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js _site/src/
-          cp docs/STARTRACE_5.md _site/docs/
+          cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js skytrace.html skytrace.css skytrace-app.js _site/
+          cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js src/startrace-sky.js _site/src/
+          cp docs/STARTRACE_5.md docs/STARTRACE_SKY_R2.md _site/docs/
+          test -s _site/skytrace.html
+          test -s _site/src/startrace-sky.js
           test -s _site/startrace.html
           test -s _site/src/startrace.js
           test -s _site/index.html
