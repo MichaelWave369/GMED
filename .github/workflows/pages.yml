@@ -26,6 +26,8 @@ jobs:
           node-version: '22'
       - name: Verify no false green states
         run: node --test tests/*.test.mjs
+      - name: Audit source-derived Horizons vector pair
+        run: npm run horizons-audit > /dev/null
       - name: Stage exact static artifact
         run: |
           mkdir -p _site/src _site/docs _site/data/horizons-5bce

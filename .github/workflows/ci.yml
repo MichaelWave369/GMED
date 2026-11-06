@@ -21,6 +21,7 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: |
+          node --check scripts/startrace-source-audit.mjs
           node --check precision-app.js
           node --check src/startrace-horizons.js
           node --check src/startrace-precision.js
@@ -39,6 +40,8 @@ jobs:
           node --check scripts/gmed.mjs
       - name: Run deterministic regression tests
         run: node --test tests/*.test.mjs
+      - name: Audit source-derived Horizons vector pair
+        run: npm run horizons-audit > /dev/null
       - name: Validate static entry points
         run: |
           test -s data/horizons-5bce/manifest.json
