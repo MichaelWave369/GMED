@@ -17,7 +17,7 @@ const fake=()=>{
   scipyVersion:'1.18.1',
   historicalCometOrbitConfirmed:false,independentPhysicalValidation:false,
   sourceCryptographicAuthenticity:false,exactClosestApproachDetermined:false,
-  anchorJD:input.epochJD,outputJD:input.outputJD,
+  anchorJD:input.epochJD,outputJD:[...input.outputJD],
   sourceNormalizedSha256:{...input.sourceNormalizedSha256},
   statistics:{maxPositionDifferenceKm:.001,rmsPositionDifferenceKm:.0008,
    maxVelocityDifferenceKmS:.000001,rmsVelocityDifferenceKmS:.0000008,
