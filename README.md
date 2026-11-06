@@ -21,6 +21,12 @@ The [Ancient Sky Lab](skytrace.html) adds an interactive 3D heliocentric candida
 
 After Pages deployment: [Explore Ancient Sky Rung 2](https://michaelwave369.github.io/GMED/skytrace.html).
 
+## STARTRACE-5 Rung 3: gravitational flyby sensitivity
+
+The [Gravity Encounter Laboratory](flyby.html) compares an ideal Sun-only comet parabola against a **restricted numerical Earth–Moon-system point-mass perturbation** of Matney's hypothetical candidate orbits. Both integrations start at the same user-selected anchor state, and the page plots three-dimensional position deviation, geocentric angular divergence and a half-step RK4 convergence diagnostic. The Earth–Moon barycenter is **approximate**, not a high-precision geocenter; this is a model-sensitivity demonstration, **not** a recovered ancient comet orbit or a validated ephemeris. [R3 methods and limits](docs/STARTRACE_FLYBY_R3.md).
+
+After Pages deployment: [Open the Gravity Encounter Laboratory](https://michaelwave369.github.io/GMED/flyby.html).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
