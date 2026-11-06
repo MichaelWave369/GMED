@@ -75,18 +75,23 @@ export function solarKeplerBenchmark({day=8,leadDays=2,rtol=1e-11}={}){
    maxStepDays:1/24
  });
  const fixed=fixedTimeline(f,initial,y0,targets,1/96);
- let maxAnalyticPositionErrorKm=0,maxRelativeEnergyDrift=0,maxAngularMomentumDrift=0;
+ let maxAnalyticPositionErrorKm=0,maxEnergyDriftNormalizedToSolarScale=0,maxAngularMomentumDrift=0;
  const e0=solarEnergy(y0),h0=angularMomentum(y0);
+ // For parabolic orbits energy is approximately zero, so a ratio to
+ // |specific energy| is ill-conditioned. Normalize the drift to the
+ // characteristic solar gravitational potential at the starting radius.
+ const energyScale=MU_SUN/norm(y0.slice(0,3));
  reference.states.forEach((s,i)=>{
    const expected=cometParabolic(targets[i],c);
    maxAnalyticPositionErrorKm=Math.max(maxAnalyticPositionErrorKm,
      norm(diff(expected,s.slice(0,3)))*AU_KM);
-   maxRelativeEnergyDrift=Math.max(maxRelativeEnergyDrift,Math.abs(solarEnergy(s)-e0)/Math.max(1e-12,Math.abs(e0)));
+   maxEnergyDriftNormalizedToSolarScale=Math.max(maxEnergyDriftNormalizedToSolarScale,
+     Math.abs(solarEnergy(s)-e0)/energyScale);
    maxAngularMomentumDrift=Math.max(maxAngularMomentumDrift,Math.abs(angularMomentum(s)-h0)/h0);
  });
  const maxRK4DifferenceKm=Math.max(...fixed.states.map((s,i)=>
    norm(diff(s.slice(0,3),reference.states[i].slice(0,3)))*AU_KM));
- return {maxAnalyticPositionErrorKm,maxRelativeEnergyDrift,maxAngularMomentumDrift,maxRK4DifferenceKm,
+ return {maxAnalyticPositionErrorKm,maxEnergyDriftNormalizedToSolarScale,maxAngularMomentumDrift,maxRK4DifferenceKm,
    source:'analytic parabolic Sun-only candidate; no Earth/Moon gravity',
    algorithmComparison:'RK4 fixed vs DOPRI54 adaptive'};
 }
