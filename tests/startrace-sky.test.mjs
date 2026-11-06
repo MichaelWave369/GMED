@@ -13,7 +13,7 @@ test('papers eleven candidate elements are loaded',()=>{
 test('paper noon UT converts to ephemeris time by ADDING delta T',()=>{
  const p=skyAt({day:8,hour:12});
  near(p.jdUT,NOON_UT_JD,1e-10);
- near(p.jdTT-p.jdUT,DEFAULT_DELTA_T/86400,1e-10);
+ near(p.jdTT-p.jdUT,DEFAULT_DELTA_T/86400,1e-9); // IEEE-754 JD subtraction has ~millisecond-level resolution
  near(jdFor(9,12)-jdFor(8,12),1,1e-10);
 });
 test('NASA Earth barycenter stays at roughly one AU',()=>{
