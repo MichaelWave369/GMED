@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1823">
+<meta name="description" content="STARTRACE-5 Rung 3: interactive gravity flyby sensitivity with numerical convergence diagnostics.">
+<title>STARTRACE-5 / Gravity Encounter Lab</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="flyby.css"><script type="module" src="flyby-app.js"></script>
+</head><body><div class="shell">
+<header class="top"><a class="brand" href="skytrace.html"><span>✳</span> STARTRACE / 05</a>
+<nav aria-label="Project pages"><a href="startrace.html">R1 / Geometry</a><a href="skytrace.html">R2 / Ancient Sky</a><a href="#controls">R3 / Flyby</a><a href="./">GMED</a></nav></header>
+<main>
+<section class="hero">
+<p class="kicker">PHI369 LABS / CANDIDATE-ORBIT PHYSICS / RUNG 03</p>
+<h1>GRAVITY<br><em>CHANGES THE STORY.</em></h1>
+<p>How much could the Earth–Moon system bend a hypothetical comet's path? Compare two numerical trajectories from the same initial state, explore model sensitivity, and check whether the calculation converges.</p>
+<div class="tags"><span>11 CANDIDATE ORBITS</span><span>RESTRICTED THREE-BODY TEST</span><span>NO HISTORICAL CERTIFICATION</span></div>
+</section>
+<div class="warning"><strong>ILLUSTRATIVE EXPERIMENT.</strong> Candidate orbits are not observations of the ancient comet. Earth and Moon are represented by one approximate barycenter point mass. Numerical convergence does not establish physical accuracy, actual visibility, or historical identification.</div>
+<section class="controls" id="controls">
+<div class="section-head"><span>01 / MISSION CONTROLS</span><h2>Configure the flyby</h2></div>
+<div class="controls-grid">
+<label>MATNEY CANDIDATE<select id="day">
+<option value="3">June 3, 5 BCE</option><option value="4">June 4, 5 BCE</option><option value="5">June 5, 5 BCE</option><option value="6">June 6, 5 BCE</option><option value="7">June 7, 5 BCE</option><option value="8" selected>June 8 / featured</option><option value="9">June 9, 5 BCE</option><option value="10">June 10, 5 BCE</option><option value="11">June 11, 5 BCE</option><option value="12">June 12, 5 BCE</option><option value="13">June 13, 5 BCE</option></select></label>
+<label>INTEGRATION START <output id="leadValue">2 days before</output><input id="leadDays" type="range" min=".5" max="5" step=".5" value="2"></label>
+<label>EARTH–MOON MASS FACTOR <output id="massValue">1.0 ×</output><input id="massMultiplier" type="range" min="0" max="2" step=".1" value="1"></label>
+<label>INTEGRATION STEP<select id="stepHours"><option value=".25">15 minutes</option><option value=".5" selected>30 minutes</option><option value="1">60 minutes</option></select></label>
+<label>ANCIENT ΔT ASSUMPTION <output id="deltaValue">10,572 s</output><input id="deltaTSeconds" type="range" min="9972" max="11172" step="60" value="10572"></label>
+<label>LOCAL SOLAR TIME <output id="hourValue">10:00</output><input id="hour" type="range" min="4" max="18" step=".5" value="10"></label>
+</div>
+<div class="actions"><button id="play" class="primary" type="button">▶ PLAY ENCOUNTER</button><button id="reset" type="button">↺ RESET</button><button id="export" type="button">↓ EXPORT JSON RECEIPT</button></div>
+<p class="error" id="error" role="alert" hidden></p>
+</section>
+<section class="figures">
+<article class="figure"><header><small>02 / ECLIPTIC XY PROJECTION</small><h2>Two possible paths</h2><p>Earth–Moon barycenter centered. Projected positions omit vertical (Z) separation.</p></header><canvas id="pathCanvas" role="img" aria-label="Earth-centered ecliptic view of a Sun-only path and its approximate gravity-perturbed counterpart.">Canvas required.</canvas><div class="legend"><span><i class="blue"></i> SUN ONLY</span><span><i class="mint"></i> WITH GRAVITY</span><span><i class="purple"></i> LUNAR DISTANCE</span><span><i class="amber"></i> SELECTED TIME</span></div></article>
+<article class="figure"><header><small>03 / ANGULAR RESPONSE</small><h2>How far do they diverge?</h2><p>Angle between approximate model sightlines, not a measured sky displacement.</p></header><canvas id="angleCanvas" role="img" aria-label="Angle between candidate modeled paths versus selected local solar hour.">Canvas required.</canvas><div class="legend"><span><i class="mint"></i> MODEL DIVERGENCE</span><span><i class="amber"></i> SELECTED TIME</span></div></article>
+</section>
+<section class="stats" aria-label="Experiment diagnostics">
+<div class="primary"><small>SHIFT AT SELECTED TIME</small><strong id="shift">…</strong><p>Model position difference</p></div>
+<div><small>SELECTED ANGULAR SHIFT</small><strong id="angle">…</strong><p>Difference between sightlines</p></div>
+<div><small>MAX POSITION SHIFT</small><strong id="maxshift">…</strong><p>Computed display window</p></div>
+<div><small>HALF-STEP NUMERICAL DIFFERENCE</small><strong id="convergence">…</strong><p>Not a measurement of truth</p></div>
+<div><small>SUN-ONLY REFERENCE ERROR</small><strong id="baseline">…</strong><p>Numerical vs analytic parabola</p></div>
+<div><small>MINIMUM SAMPLED RANGE</small><strong id="range">…</strong><p>Approximate barycenter proxy</p></div>
+</section>
+<section class="method"><div><small>04 / SCIENTIFIC METHOD</small><h2>A difference is not a discovery.</h2></div><div><p>Both paths start with the same proposed comet state. The second includes an approximate Earth–Moon gravitational perturbation, including acceleration of the heliocentric origin. Their divergence measures a sensitivity to model assumptions.</p><p>Changing the integration start date changes the result. Turning the mass factor above or below 1× is a deliberately counterfactual experiment. Half-step agreement checks numerical consistency, not ancient astronomy.</p><p>Before claiming historical accuracy, we need true Earth and Moon ephemerides, a gravity-aware orbital fit to the ancient source constraints, and independent comparison against the published sky figures.</p><a href="docs/STARTRACE_FLYBY_R3.md">READ EQUATIONS, SOURCES AND LIMITATIONS ↗</a></div></section>
+</main><footer><span>PHI369 LABS · STARTRACE-5 · LEDGER ABOVE EGO</span><span>MODEL ≠ OBSERVATION</span><a href="https://github.com/MichaelWave369/GMED">SOURCE ↗</a></footer>
+</div></body></html>
