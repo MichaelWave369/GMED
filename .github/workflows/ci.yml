@@ -21,6 +21,9 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: |
+          node --check validate-app.js
+          node --check src/startrace-validation.js
+          node --check scripts/startrace-validate-horizons.mjs
           node --check scripts/startrace-source-audit.mjs
           node --check precision-app.js
           node --check src/startrace-horizons.js
@@ -42,8 +45,18 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Audit source-derived Horizons vector pair
         run: npm run horizons-audit > /dev/null
+      - name: Validate 30-minute withheld ephemeris samples
+        run: npm run horizons-validate > /dev/null
       - name: Validate static entry points
         run: |
+          test -s validate.html
+          test -s validate.css
+          test -s validate-app.js
+          grep -q 'id="modePosition"' validate.html
+          test -s docs/STARTRACE_HORIZONS_R6.md
+          test -s data/horizons-5bce/earth-399-30min-extract.txt
+          test -s data/horizons-5bce/moon-301-30min-extract.txt
+          test -s data/horizons-5bce/heldout-manifest.json
           test -s data/horizons-5bce/manifest.json
           test -s data/horizons-5bce/earth-399-extract.txt
           test -s data/horizons-5bce/moon-301-extract.txt

@@ -9,11 +9,12 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check scripts/startrace-source-audit.mjs && node --check precision-app.js && node --check src/startrace-horizons.js && node --check src/startrace-precision.js && node --check flyby-app.js && node --check src/startrace-flyby.js && node --check skytrace-app.js && node --check src/startrace-sky.js && node --check startrace-app.js && node --check src/startrace.js && node --check scripts/startrace.mjs && node --check app.js && node --check src/verifier.js && node --check src/github.js && node --check src/ouroboros.js && node --check scripts/gmed.mjs && node --check scripts/ouroboros.mjs && npm test",
+    "check": "node --check validate-app.js && node --check src/startrace-validation.js && node --check scripts/startrace-validate-horizons.mjs && node --check scripts/startrace-source-audit.mjs && node --check precision-app.js && node --check src/startrace-horizons.js && node --check src/startrace-precision.js && node --check flyby-app.js && node --check src/startrace-flyby.js && node --check skytrace-app.js && node --check src/startrace-sky.js && node --check startrace-app.js && node --check src/startrace.js && node --check scripts/startrace.mjs && node --check app.js && node --check src/verifier.js && node --check src/github.js && node --check src/ouroboros.js && node --check scripts/gmed.mjs && node --check scripts/ouroboros.mjs && npm test",
     "verify": "node scripts/gmed.mjs",
     "ouroboros": "node scripts/ouroboros.mjs",
     "startrace": "node scripts/startrace.mjs",
-    "horizons-audit": "node scripts/startrace-source-audit.mjs"
+    "horizons-audit": "node scripts/startrace-source-audit.mjs",
+    "horizons-validate": "node scripts/startrace-validate-horizons.mjs"
   },
   "license": "MIT"
 }

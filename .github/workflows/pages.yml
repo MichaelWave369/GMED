@@ -28,14 +28,23 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Audit source-derived Horizons vector pair
         run: npm run horizons-audit > /dev/null
+      - name: Validate 30-minute withheld ephemeris samples
+        run: npm run horizons-validate > /dev/null
       - name: Stage exact static artifact
         run: |
           mkdir -p _site/src _site/docs _site/data/horizons-5bce
-          cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js skytrace.html skytrace.css skytrace-app.js flyby.html flyby.css flyby-app.js precision.html precision.css precision-app.js _site/
-          cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js src/startrace-sky.js src/startrace-flyby.js src/startrace-horizons.js src/startrace-precision.js _site/src/
+          cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js skytrace.html skytrace.css skytrace-app.js flyby.html flyby.css flyby-app.js precision.html precision.css precision-app.js validate.html validate.css validate-app.js _site/
+          cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js src/startrace-sky.js src/startrace-flyby.js src/startrace-horizons.js src/startrace-precision.js src/startrace-validation.js _site/src/
           cp docs/STARTRACE_5.md docs/STARTRACE_SKY_R2.md docs/STARTRACE_FLYBY_R3.md docs/STARTRACE_EPHEMERIS_R4.md _site/docs/
           cp data/horizons-5bce/earth-399-extract.txt data/horizons-5bce/moon-301-extract.txt data/horizons-5bce/manifest.json _site/data/horizons-5bce/
-          cp docs/STARTRACE_HORIZONS_R5.md _site/docs/
+          cp docs/STARTRACE_HORIZONS_R5.md docs/STARTRACE_HORIZONS_R6.md _site/docs/
+          cp data/horizons-5bce/earth-399-30min-extract.txt data/horizons-5bce/moon-301-30min-extract.txt data/horizons-5bce/heldout-manifest.json _site/data/horizons-5bce/
+          test -s _site/validate.html
+          test -s _site/validate-app.js
+          test -s _site/src/startrace-validation.js
+          test -s _site/data/horizons-5bce/earth-399-30min-extract.txt
+          test -s _site/data/horizons-5bce/moon-301-30min-extract.txt
+          test -s _site/data/horizons-5bce/heldout-manifest.json
           test -s _site/data/horizons-5bce/earth-399-extract.txt
           test -s _site/data/horizons-5bce/moon-301-extract.txt
           test -s _site/data/horizons-5bce/manifest.json
