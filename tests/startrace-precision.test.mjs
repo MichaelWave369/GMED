@@ -14,8 +14,8 @@ const make=(id,name,offset=0)=>{
  ];
  for(let i=0;i<=112;i++){
   const t=i*.125;
-  const p=[1-.001*t,.003*t+offset,0];
-  const v=[-.001,.003,0];
+  const p=[1-.012*t,.013*t+offset,0];
+  const v=[-.012,.013,0];
   lines.push([1719745+i*.125,'B.C. 0005-Jun-01 00:00:00',...p,...v,''].join(','));
  }
  return lines.join('\n')+'\n$$EOE';
