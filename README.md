@@ -9,6 +9,12 @@ Repository: https://github.com/MichaelWave369/GMED
 
 GitHub Pages target: https://michaelwave369.github.io/GMED/ (published only after Pages is configured and the deployment succeeds).
 
+## STARTRACE-5: historical sky evidence laboratory (Rung 1)
+
+The [STARTRACE-5 interactive lab](startrace.html) uses transparent orbital/observation geometry to explore a proposed 5 BCE comet scenario without claiming a historical identification. It exposes claim provenance, a speed-versus-distance chart, Kepler period sensitivity, parallax estimates and integrated-brightness factors. It exports conservative JSON research receipts and runs deterministic regression tests. Matney's full ephemeris, simulations and historical likelihood inference are **not implemented**. [Methods and limitations](docs/STARTRACE_5.md).
+
+CLI: `npm run startrace -- 0.0026 24.5 13200`. After a successful Pages deployment: [Launch STARTRACE-5](https://michaelwave369.github.io/GMED/startrace.html).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
