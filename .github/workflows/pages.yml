@@ -32,15 +32,30 @@ jobs:
         run: npm run horizons-validate > /dev/null
       - name: Audit comet gravity integrator convergence
         run: npm run gravity-audit > /dev/null
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned reference solver
+        run: python -m pip install -r requirements-r8.txt
+      - name: Compute verified SciPy cross-language report
+        run: |
+          node scripts/startrace-r8-export.mjs > /tmp/gmed-r8-case.json
+          python scripts/startrace-r8-scipy.py /tmp/gmed-r8-case.json /tmp/gmed-r8-scipy.json
+          node scripts/startrace-r8-verify.mjs /tmp/gmed-r8-case.json /tmp/gmed-r8-scipy.json > /tmp/gmed-r8-report.json
       - name: Stage exact static artifact
         run: |
           mkdir -p _site/src _site/docs _site/data/horizons-5bce
-          cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js skytrace.html skytrace.css skytrace-app.js flyby.html flyby.css flyby-app.js precision.html precision.css precision-app.js validate.html validate.css validate-app.js stress.html stress.css stress-app.js _site/
-          cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js src/startrace-sky.js src/startrace-flyby.js src/startrace-horizons.js src/startrace-precision.js src/startrace-validation.js src/startrace-integrators.js src/startrace-r7.js _site/src/
+          cp index.html app.js styles.css favicon.svg startrace.html startrace.css startrace-app.js skytrace.html skytrace.css skytrace-app.js flyby.html flyby.css flyby-app.js precision.html precision.css precision-app.js validate.html validate.css validate-app.js stress.html stress.css stress-app.js reference.html reference.css reference-app.js _site/
+          cp src/verifier.js src/github.js src/ouroboros.js src/startrace.js src/startrace-sky.js src/startrace-flyby.js src/startrace-horizons.js src/startrace-precision.js src/startrace-validation.js src/startrace-integrators.js src/startrace-r7.js src/startrace-r8-verify.js _site/src/
           cp docs/STARTRACE_5.md docs/STARTRACE_SKY_R2.md docs/STARTRACE_FLYBY_R3.md docs/STARTRACE_EPHEMERIS_R4.md _site/docs/
           cp data/horizons-5bce/earth-399-extract.txt data/horizons-5bce/moon-301-extract.txt data/horizons-5bce/manifest.json _site/data/horizons-5bce/
-          cp docs/STARTRACE_HORIZONS_R5.md docs/STARTRACE_HORIZONS_R6.md docs/STARTRACE_GRAVITY_R7.md _site/docs/
+          cp docs/STARTRACE_HORIZONS_R5.md docs/STARTRACE_HORIZONS_R6.md docs/STARTRACE_GRAVITY_R7.md docs/STARTRACE_SCIPY_R8.md _site/docs/
+          cp /tmp/gmed-r8-report.json _site/data/solver-r8-report.json
           cp data/horizons-5bce/earth-399-30min-extract.txt data/horizons-5bce/moon-301-30min-extract.txt data/horizons-5bce/heldout-manifest.json _site/data/horizons-5bce/
+          test -s _site/reference.html
+          test -s _site/reference-app.js
+          test -s _site/data/solver-r8-report.json
+          test -s _site/docs/STARTRACE_SCIPY_R8.md
           test -s _site/stress.html
           test -s _site/stress-app.js
           test -s _site/src/startrace-integrators.js

@@ -1,0 +1,1 @@
+.readouts strong{font-size:clamp(23px,3vw,36px)}.readouts .focus strong{font-size:clamp(23px,3vw,36px)}.graph-section canvas{display:block;width:100%;height:auto;aspect-ratio:2.4/1;background:#0b1c2a;border:1px solid #31525e;border-radius:7px}.hero strong{color:#eaf8f2}@media(max-width:550px){.graph-section canvas{aspect-ratio:1.3/1}}

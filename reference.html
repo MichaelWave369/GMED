@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1520"><meta name="description" content="STARTRACE-5: independent SciPy DOP853 numerical comparison for a hypothetical 5 BCE comet.">
+<title>STARTRACE-5 / External Solver Cross-Check</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./validate.css"><link rel="stylesheet" href="./reference.css">
+<script type="module" src="./reference-app.js"></script>
+</head><body><div class="shell">
+<header class="top"><a href="./stress.html" class="brand"><b class="symbol">✳</b> STARTRACE <span>/ 05</span></a>
+<nav aria-label="STARTRACE navigation"><a href="./skytrace.html">R2 / SKY</a><a href="./flyby.html">R3 / GRAVITY</a><a href="./precision.html">R4–5 / HORIZONS</a><a href="./validate.html">R6 / VALIDATION</a><a href="./stress.html">R7 / SOLVERS</a><a href="./">GMED</a></nav></header>
+<main><section class="hero">
+<p class="eyebrow">PHI369 LABS / EXTERNAL SOLVER VERIFICATION / RUNG 08</p>
+<h1>LET ANOTHER<br><em>SOLVER CHECK.</em></h1>
+<p>Our JavaScript model is now challenged by <strong>SciPy DOP853</strong>, an independently maintained eighth-order adaptive numerical integrator. Both programs receive the same hypothetical comet initial state and source-derived Earth/Moon vectors. This page shows the real, CI-verified cross-language calculation.</p>
+<div class="tags"><span>SCIPY 1.18.1 / PINNED</span><span>DOP853 8TH ORDER</span><span>JAVASCRIPT RK45</span><span>29 MATCHED EPOCHS</span></div>
+</section>
+<div class="warning"><strong>NUMERICAL CONSISTENCY IS NOT HISTORICAL PROOF.</strong> Both solvers use the same restricted Sun/Earth/Moon force assumptions and hypothetical comet seed. They do not validate an ancient comet orbit, NASA source authenticity, actual close encounter, or optical visibility.</div>
+<section class="method"><div class="section-head"><span class="section-index">01 / PROVENANCE-AWARE PIPELINE</span><h2>Same inputs. Different software.</h2></div>
+<div class="steps">
+<div><strong>01</strong><span>FREEZE THE INPUT</span><p>Export the proposed starting position, velocity, 29 sample times, and normalized Earth/Moon vector tables.</p></div>
+<div><strong>02</strong><span>INTEGRATE WITH SCIPY</span><p>Reimplement source interpolation and forces in Python; solve the state with externally maintained DOP853.</p></div>
+<div><strong>03</strong><span>FAIL CLOSED</span><p>Check every timestamp, source hash, numeric limit and forbidden claim before the static report gets deployed.</p></div>
+</div>
+<div class="actions"><button id="reload" class="primary" type="button">↻ LOAD VERIFIED BUILD REPORT</button><button id="export" type="button" disabled>↓ EXPORT AUDIT JSON</button><span id="status" role="status">Waiting for verified CI report.</span></div>
+<p class="error" id="error" role="alert" hidden></p></section>
+<section class="readouts" aria-label="Cross-language numerical diagnostics">
+<div class="focus"><span>MAXIMUM POSITION DIFFERENCE</span><strong id="maxPosition">—</strong><small>3D Cartesian, SciPy vs JavaScript</small></div>
+<div class="focus"><span>RMS POSITION DIFFERENCE</span><strong id="rmsPosition">—</strong><small>Across 29 matching output epochs</small></div>
+<div><span>MAXIMUM VELOCITY DIFFERENCE</span><strong id="maxVelocity">—</strong><small>Same restricted gravity model</small></div>
+<div><span>SCIPY FUNCTION EVALUATIONS</span><strong id="evaluations">—</strong><small>DOP853 solver work</small></div>
+<div><span>MATCHED EPOCHS</span><strong id="count">—</strong><small>June 8, 5 BCE candidate window</small></div>
+<div><span>HISTORICAL ORBIT VERIFIED</span><strong class="negative">NO</strong><small>Explicit scientific boundary</small></div>
+</section>
+<section class="graph-section"><div class="graph-head"><span class="section-index">02 / ACTUAL CROSS-LANGUAGE RESIDUALS</span><h2>Watch the methods disagree.</h2>
+<p>Differences between two calculated trajectories, not uncertainties in the real historical comet.</p></div>
+<div class="modes" role="group" aria-label="Plot measurement"><button id="positionMode" type="button" aria-pressed="true">POSITION / METERS</button><button id="velocityMode" type="button" aria-pressed="false">VELOCITY / M/S</button></div>
+<canvas id="plot" role="img" aria-label="Plot of numerical differences between SciPy DOP853 and JavaScript RK45 over 29 epochs">Canvas required.</canvas>
+<p class="chart-note">Data are produced during the same Pages build that publishes the site. No Python runs in this browser and no fabricated reference values are displayed.</p></section>
+<section class="sources"><div><span class="section-index">03 / SCIENTIFIC LIMITS</span><h2>Agreement is evidence. Not identification.</h2>
+<p>Cross-language agreement helps test numerical correctness. It does not independently verify the gravitational force model, prove the source-derived ephemerides, or identify the comet reported in antiquity.</p>
+</div><div class="source-links"><a href="./docs/STARTRACE_SCIPY_R8.md">READ FULL METHODS & REPRODUCTION ↗</a><a href="./stress.html">R7 / INTERNAL SOLVER STRESS TEST ↗</a><a href="./data/horizons-5bce/manifest.json">SOURCE VECTOR PROVENANCE ↗</a><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.DOP853.html" target="_blank" rel="noreferrer">SCIPY DOP853 REFERENCE ↗</a></div></section>
+</main><footer><span>STARTRACE-5 / PHI369 LABS / RUNG 08</span><span>INDEPENDENT SOFTWARE ≠ INDEPENDENT OBSERVATION</span><a href="https://github.com/MichaelWave369/GMED">OPEN SOURCE ↗</a></footer>
+</div></body></html>

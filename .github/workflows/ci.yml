@@ -21,6 +21,10 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: |
+          node --check reference-app.js
+          node --check src/startrace-r8-verify.js
+          node --check scripts/startrace-r8-export.mjs
+          node --check scripts/startrace-r8-verify.mjs
           node --check stress-app.js
           node --check src/startrace-integrators.js
           node --check src/startrace-r7.js
@@ -53,8 +57,35 @@ jobs:
         run: npm run horizons-validate > /dev/null
       - name: Audit comet gravity integrator convergence
         run: npm run gravity-audit > /dev/null
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned reference solver
+        run: python -m pip install -r requirements-r8.txt
+      - name: Verify independent SciPy DOP853 solver reference
+        run: |
+          python -m py_compile scripts/startrace-r8-scipy.py
+          node scripts/startrace-r8-export.mjs > /tmp/gmed-r8-case.json
+          python scripts/startrace-r8-scipy.py /tmp/gmed-r8-case.json /tmp/gmed-r8-scipy.json
+          node scripts/startrace-r8-verify.mjs /tmp/gmed-r8-case.json /tmp/gmed-r8-scipy.json > /tmp/gmed-r8-report.json
+      - name: Summarize actual cross-language solver discrepancies
+        run: |
+          node -e 'const r=require("/tmp/gmed-r8-report.json");console.log(JSON.stringify({verdict:r.verdict,method:r.referenceMethod,scipy:r.scipyVersion,samples:r.statistics.sampleCount,maxPositionDifferenceKm:r.statistics.maxPositionDifferenceKm,rmsPositionDifferenceKm:r.statistics.rmsPositionDifferenceKm,maxVelocityDifferenceKmS:r.statistics.maxVelocityDifferenceKmS,physicalValidation:r.independentPhysicalValidation},null,2))'
+      - name: Preserve the vetted R8 scientific report for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: startrace-r8-cross-language-report
+          path: /tmp/gmed-r8-report.json
+          retention-days: 7
+          if-no-files-found: error
       - name: Validate static entry points
         run: |
+          test -s reference.html
+          test -s reference.css
+          test -s reference-app.js
+          grep -q 'id="plot"' reference.html
+          test -s docs/STARTRACE_SCIPY_R8.md
+          test -s requirements-r8.txt
           test -s stress.html
           test -s stress.css
           test -s stress-app.js
