@@ -68,6 +68,16 @@ jobs:
           node scripts/startrace-r8-export.mjs > /tmp/gmed-r8-case.json
           python scripts/startrace-r8-scipy.py /tmp/gmed-r8-case.json /tmp/gmed-r8-scipy.json
           node scripts/startrace-r8-verify.mjs /tmp/gmed-r8-case.json /tmp/gmed-r8-scipy.json > /tmp/gmed-r8-report.json
+      - name: Summarize actual cross-language solver discrepancies
+        run: |
+          node -e 'const r=require("/tmp/gmed-r8-report.json");console.log(JSON.stringify({verdict:r.verdict,method:r.referenceMethod,scipy:r.scipyVersion,samples:r.statistics.sampleCount,maxPositionDifferenceKm:r.statistics.maxPositionDifferenceKm,rmsPositionDifferenceKm:r.statistics.rmsPositionDifferenceKm,maxVelocityDifferenceKmS:r.statistics.maxVelocityDifferenceKmS,physicalValidation:r.independentPhysicalValidation},null,2))'
+      - name: Preserve the vetted R8 scientific report for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: startrace-r8-cross-language-report
+          path: /tmp/gmed-r8-report.json
+          retention-days: 7
+          if-no-files-found: error
       - name: Validate static entry points
         run: |
           test -s reference.html
