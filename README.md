@@ -47,6 +47,16 @@ Run `npm run horizons-validate` offline to reproduce the deterministic max/RMS/p
 
 After successful deployment: [Launch the withheld interpolation audit](https://michaelwave369.github.io/GMED/validate.html).
 
+## STARTRACE-5 Rung 7: numerical gravity solver stress test
+
+The [Comet Solver Stress Test](stress.html) uses two distinct integration algorithms (classical RK4 and an embedded adaptive Dormand–Prince RK45) and cross-checks the existing R4 restricted Sun+Earth+Moon comet model against **a separate numerical code path**. It uses the existing NASA Horizons-derived normalized Earth and Moon vectors from R5, strict state and source checks, step rejection, adaptive tolerance limits, Sun-only parabolic energy/angular-momentum diagnostics, and computational close-approach exclusions.
+
+These are **numerical tests of a hypothetical comet orbit**, not independent validation of ancient comet observations or the physical correctness of the force model. The R7 scenario is currently limited to the June 8 5 BCE source coverage; saved Horizons files are normalized data extracts, **not authenticated NASA raw responses**.
+
+Run `npm run gravity-audit` to emit a JSON scientific receipt, or use `npm run gravity-audit -- --full` for the per-sample results. The solver test is required in GitHub Actions and Pages staging. [R7 full methods and caveats](docs/STARTRACE_GRAVITY_R7.md).
+
+After successful Pages deployment: [Launch R7 Solver Stress Lab](https://michaelwave369.github.io/GMED/stress.html).
+
 ## Rung 2: The Ouroboros Protocol
 
 **Who verifies the verifier?** A fresh, independently implemented public GitHub API inspector now rereads the target PR and its merged-commit checks, independently recomputes the verdict, and compares both receipts. A declared trust-graph detector rejects circular self-attestation. The browser has an **Ouroboros / Second Opinion** button and a separate **synthetic loop challenge**.
